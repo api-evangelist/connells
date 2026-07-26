@@ -1,0 +1,588 @@
+aid: connells
+name: Connells Group
+review:
+  question: What is Connells Group's real, publicly reachable API surface, what does
+    a developer have to sign or join to use it, and what is its RESO posture?
+  date: '2026-07-26'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+  tier: brokerage
+  primaryDomain: connellsgroup.co.uk
+  summary: |
+    Connells Group is the largest estate agency group in the United Kingdom —
+    1,200+ branches, 16,000+ colleagues, 80+ local brands, ~115,000 sales a
+    year, ~10% market share, 165,000+ managed tenancies, £33bn+ arranged
+    mortgage lending — and it publishes no developer surface whatsoever.
+
+    Every conventional developer entry point was probed on 2026-07-26 and every
+    one failed. developer.connellsgroup.co.uk, developers.connellsgroup.co.uk,
+    api.connellsgroup.co.uk and docs.connellsgroup.co.uk do not resolve in DNS
+    (curl exit 6, recorded here as status 000), and neither do
+    api.connells.co.uk, developer.connells.co.uk, api.connells-surveyors.co.uk,
+    developer.connells-surveyors.co.uk, api.hamptons.co.uk or
+    developer.hamptons.co.uk. On the two main web properties
+    (connellsgroup.co.uk and connells.co.uk) the paths /developers, /api, /docs,
+    /openapi.json, /swagger.json, /api-docs, /$metadata, /llms.txt,
+    /.well-known/security.txt and /.well-known/openid-configuration are
+    uniformly 404.
+
+    The corporate sitemap at https://www.connellsgroup.co.uk/xml-sitemap/ was
+    fetched (HTTP 200) and enumerated in full: 88 URLs. Exactly two matched a
+    case-insensitive grep for api/developer/data/integr/portal, and both are
+    false friends — /research/our-data/ (a marketing page for a research
+    product) and /research/who-we-help/developers/ (addressed to property and
+    housing developers, not software developers; confirmed by fetching it). Zero
+    developer paths exist in the group's published estate.
+
+    The consumer property search at https://www.connells.co.uk/properties/sales
+    (HTTP 200, 1.1 MB) was scanned for machine surfaces. It reveals no API host,
+    no relative /api path, and no graphql, odata, $metadata, swagger or openapi
+    string. The only third-party hosts it names are the platform vendors behind
+    the site: homeflow.co.uk and mr0-3.homeflow-assets.co.uk (Homeflow, the UK
+    estate-agency website platform that powers Connells' consumer sites),
+    connells.fixflo.com (Fixflo repairs/lettings), myaccount.connells.co.uk
+    (consumer account), plus adfenix, yomdel, matterport, onetrust and the usual
+    analytics. Unlike Savills, Connells does not even leak an internal endpoints
+    manifest — the private estate is genuinely invisible from outside.
+
+    No spec of any kind was harvested, so there is no openapi/ directory in this
+    repo. apis[] in apis.yml is empty, which is the correct and honest result.
+
+resoPosture:
+  certified: false
+  posture: No RESO reference found anywhere in the Connells Group estate; RESO is
+    a North American NAR/MLS construct and the United Kingdom has no MLS to
+    certify against.
+  webApiCertification: none found
+  dataDictionaryCertification: none found
+  dataDictionaryVersion: null
+  directoryEvidence: |
+    https://www.reso.org/certificates/ — the official list of RESO certified
+    organizations — was fetched on 2026-07-26 (HTTP 200, 416,233 bytes) and
+    searched case-insensitively for "connells", "countrywide", "hamptons",
+    "sequence", "united kingdom" and "england". Zero matches of any kind. The
+    directory lists US MLSs, pooled platforms, technology vendors and
+    brokerages; no Connells Group entity and no UK entity appears in it.
+  odataEndpoint: none
+  metadataDocument: |
+    Probed https://www.connellsgroup.co.uk/$metadata (HTTP 404) and
+    https://www.connells.co.uk/$metadata (HTTP 404). No OData service document
+    and no $metadata exists anywhere in the estate. Nothing OData-shaped was
+    found to save verbatim, so nothing was written to openapi/.
+  universalPropertyIdentifier: |
+    No UPI. Connells identifies property with its own opaque numeric listing
+    identifiers inside the Homeflow-powered search application (for example the
+    brochure/listing ids embedded in the /properties/sales markup). Nothing in
+    the public estate maps to a RESO Universal Property Identifier, and no UPI
+    string appears in any fetched page.
+  marketNote: |
+    This is the expected UK answer and is structural, not a lapse. The UK has no
+    MLS and therefore no cooperative standard to certify against. Residential
+    listings are controlled by two portals — Rightmove and Zoopla — and reach
+    them through agency CRM and website software (Reapit, Alto, Street, Apex27,
+    and in Connells' case Homeflow on the consumer web side) rather than a
+    shared cooperative pool. The de facto UK interchange format is the Rightmove
+    V3 BLM feed, a bulk XML upload specification owned by a private portal, not
+    an industry standard body — the opposite of RESO in both governance and
+    shape. Connells is a supplier into that pipe, not an operator of it.
+    "Certified but not reachable" does not apply here: there is no certification
+    layer in this market at all.
+  usPresence: |
+    None relevant. Connells Group is UK-only; it has no US residential brokerage
+    arm and therefore no MLS participation that RESO certification could attach
+    to.
+
+accessGate:
+  gate: partner-only
+  gated: true
+  selfServe: false
+  portalConfirmed: false
+  whatYouMustSignOrJoin: |
+    There is no developer signup, no application form, no sandbox, no API terms
+    of use, no published API key issuance process and no documentation anywhere
+    on connellsgroup.co.uk, connells.co.uk, connells-surveyors.co.uk,
+    countrywide.co.uk, hamptons.co.uk or sequencehome.co.uk. Integration with
+    Connells is real but happens exclusively inside a commercial relationship,
+    which is why the gate is recorded as partner-only rather than
+    none-published:
+
+      1. LENDER PANEL INTEGRATION. Connells Survey & Valuation states on
+         https://www.connells-surveyors.co.uk/our-services/professional-services/
+         (HTTP 200) that it "has the knowledge and experience to deliver totally
+         integrated panel and risk management technology solutions to lenders",
+         with a phased implementation option, and that it services over 40 UK
+         lenders. A lender becomes able to instruct valuations programmatically
+         by signing a panel management agreement — a commercial contract, not a
+         developer registration. The published contact route is a business email
+         (csvnewbusiness@connells.co.uk) and a phone number.
+      2. THIRD-PARTY PLATFORM INTEGRATION. Reported in the trade press in May
+         2026, Connells Survey & Valuation (with StrideUp) adopted Cotality's
+         LenderHub for real-time instruction of valuations and delivery of
+         digital valuation reports between lenders, panel managers and surveying
+         firms. The contract in that flow belongs to Cotality, not to Connells,
+         and is not published by either party.
+      3. RESEARCH DATA. The Connells Group Research product — national,
+         regional, local and postcode-level insight blended at UDPRN level from
+         proprietary branch data covering 88% of UK postcode areas — is sold, not
+         served. https://www.connellsgroup.co.uk/research/our-data/ (HTTP 200)
+         offers a name/email/message contact form and a "Request a brochure"
+         link at https://www.connellsgroup.co.uk/research/request-a-brochure/.
+         No API, no feed, no download, no format, no update frequency and no
+         pricing are published.
+
+    A software developer with no commercial relationship has no route in at all.
+  credentialIssuance: |
+    Not documented. No credential issuance process of any kind is published. The
+    only login surfaces in the estate are end-user, not developer:
+    https://myaccount.connells.co.uk/ (consumer "MyAccount", an ASP.NET
+    application) and https://connells.fixflo.com/ (Fixflo, a third-party
+    repairs/maintenance portal for lettings tenants and landlords).
+  docsAreOpen: |
+    Nothing to open. Unlike Zoopla — where readable contracts are public even
+    though credentials are membership-gated — Connells publishes neither
+    contracts nor reference documentation. The distinction between an open
+    contract and an open dataset does not arise, because neither exists.
+
+openData:
+  publishesOpenData: false
+  note: |
+    Connells Group publishes no open, unlicensed, publicly callable dataset. Its
+    research output is a commercial product reached through a brochure request
+    and a contact form, and its quarterly market reports and monthly market
+    briefs are published as narrative news items under
+    https://www.connellsgroup.co.uk/news/ (HTTP 200) with no CSV, no feed and no
+    API — the site does not even serve RSS (/feed/, /rss and /news/feed/ all
+    404).
+
+    The genuinely open UK property layer sits in the public sector and is not
+    operated by Connells: HM Land Registry Price Paid Data and ownership data
+    under the Open Government Licence, and Ordnance Survey's addressing and
+    mapping open products. This is the structural inverse of the United States:
+    the UK has no industry standard and no MLS, but it does have real open
+    government property APIs — and none of them come from the brokerages, the
+    portals or the CRM vendors.
+
+authModel:
+  scheme: none published
+  detail: |
+    No authentication scheme is documented, because no API is documented. OIDC
+    discovery was probed anonymously on every plausible host:
+      https://www.connellsgroup.co.uk/.well-known/openid-configuration → 404
+      https://www.connells.co.uk/.well-known/openid-configuration → 404
+      https://myaccount.connells.co.uk/.well-known/openid-configuration →
+        final 200 but NOT a discovery document. The request 302s to /logout,
+        then 302s to /Login?redir=%252Flogout, and returns 141,695 bytes of
+        text/html (an ASP.NET consumer login page, Azure App Service, ARRAffinity
+        cookies). This is a catch-all redirect for unknown paths, not OIDC
+        metadata. Recorded explicitly here so the 200 is never mistaken for a
+        discovery endpoint.
+    No API key scheme, no OAuth2 flow, no SAML member-portal entry point, no
+    scopes and no token endpoint are published anywhere. No security.txt is
+    served (https://www.connellsgroup.co.uk/.well-known/security.txt → 404).
+
+apiFamily:
+  note: |
+    Connells Group's product family is recorded here as the business
+    segmentation the company itself uses on its own website, because there is no
+    API documentation to take a segmentation from. None of these business lines
+    has a corresponding documented API.
+  segmentationUsedByTheSite:
+  - Estate agency (residential sales)
+  - Residential lettings
+  - Corporate lettings
+  - New homes
+  - Land and planning
+  - Auctions
+  - Surveys and valuations (Connells Survey & Valuation; Countrywide Surveying
+    Services)
+  - Conveyancing
+  - Mortgage services
+  - PRS investor services
+  - Affordable housing services
+  - Commercial agency
+  - Asset management
+  - Energy performance certificates and inventories
+  - Research and consultancy
+  listingsSearch: >-
+    Consumer web only, at https://www.connells.co.uk/properties/sales and
+    /properties/lettings, served by the Homeflow platform. No documented JSON
+    API, no feed, no export, no bulk download. Listings reach the market through
+    Rightmove, Zoopla and OnTheMarket via portal feeds, never through a public
+    Connells API.
+  propertyRecords: not available
+  valuationAVM: >-
+    Connells Survey & Valuation and Countrywide Surveying Services deliver
+    RICS-regulated human valuation plus data-assisted products (Geoconnect
+    valuation engine, SurveySphere virtual inspection). These are lender-panel
+    services delivered under commercial contract, not a public AVM API. Neither
+    Geoconnect nor SurveySphere has any public documentation, base URL or spec.
+  transactions: not available
+  documents: not available
+  tenancy: >-
+    Tenant and landlord repairs run through a third-party vendor portal at
+    https://connells.fixflo.com/ (Fixflo). Any API there belongs to Fixflo, not
+    Connells.
+  payments: not available
+
+webhooksEventsSdksPostman:
+  webhooks: None. No webhook, callback or push mechanism is documented.
+  events: No event bus, no streaming, no AsyncAPI document, no WebSocket surface.
+  sdks: None. No Connells SDK exists in any package registry.
+  githubOrganization: >-
+    None. https://api.github.com/orgs/connellsgroup returns 404. A GitHub USER
+    account exists at https://github.com/ConnellsGroup (id 200760735, type User,
+    created 2025-02-25) but it has 0 public repos, no name, no company, no bio
+    and no blog — there is nothing to attribute to the company, so it is
+    deliberately NOT listed in apis.yml.
+  postman: No official Postman collection or workspace found.
+  changelog: None — there is no developer portal to publish one on.
+  statusPage: None. status.connells.co.uk does not resolve.
+  rateLimits: Not documented (nothing public to rate limit).
+  sandbox: None.
+  llmsTxt: >-
+    Neither https://www.connellsgroup.co.uk/llms.txt nor
+    https://www.connells.co.uk/llms.txt exists (both 404).
+  robotsPosture: >-
+    https://www.connellsgroup.co.uk/robots.txt (200) allows all agents except for
+    /404/, /Oops/ and *.axd, and declares the sitemap at /xml-sitemap/.
+    https://www.connells.co.uk/robots.txt (200) disallows exactly one agent,
+    trovitBot, and declares /sitemaps.xml. No AI-crawler policy is expressed on
+    either.
+
+vendorStack:
+  note: |
+    Recorded as evidence of how Connells actually moves data, NOT as a Connells
+    API surface. None of these is a Connells-published API; every one of them is
+    a third-party product Connells buys.
+  observed:
+  - vendor: Homeflow
+    role: Estate agency website and property search platform powering
+      connells.co.uk consumer search
+    evidence: homeflow.co.uk and mr0/mr1/mr3.homeflow-assets.co.uk referenced
+      throughout https://www.connells.co.uk/properties/sales (HTTP 200)
+  - vendor: Fixflo
+    role: Lettings repairs and maintenance portal
+    evidence: https://connells.fixflo.com/ referenced in the same page
+  - vendor: Cotality (LenderHub)
+    role: Valuation instruction and digital report delivery between lenders,
+      panel managers and surveying firms
+    evidence: Trade press, May 2026 — Connells Survey & Valuation and StrideUp
+      adopting Cotality valuation technology
+  - vendor: Microsoft Azure App Service
+    role: Hosting for myaccount.connells.co.uk (ARRAffinity cookies,
+      request-context appId header, ASP.NET session)
+    evidence: Response headers captured 2026-07-26
+
+harvest:
+  fetchDate: '2026-07-26'
+  specsHarvested: 0
+  openapiDirectory: null
+  note: |
+    No OpenAPI, Swagger, OData $metadata, AsyncAPI, GraphQL schema, JSON Schema
+    or Postman collection was found anywhere in the Connells Group estate. No
+    openapi/ directory was created because there was nothing real to put in it.
+
+probes:
+- url: https://www.connellsgroup.co.uk/
+  status: 200
+  note: Corporate group site. No developer or API link in navigation or footer.
+- url: https://connellsgroup.co.uk/
+  status: 200
+  note: Resolves to the www host.
+- url: https://developer.connellsgroup.co.uk/
+  status: '000'
+  note: Does not resolve — no DNS record.
+- url: https://developers.connellsgroup.co.uk/
+  status: '000'
+  note: Does not resolve — no DNS record.
+- url: https://api.connellsgroup.co.uk/
+  status: '000'
+  note: Does not resolve — no DNS record.
+- url: https://docs.connellsgroup.co.uk/
+  status: '000'
+  note: Does not resolve — no DNS record.
+- url: https://www.connellsgroup.co.uk/developers
+  status: 404
+- url: https://www.connellsgroup.co.uk/api
+  status: 404
+- url: https://www.connellsgroup.co.uk/docs
+  status: 404
+- url: https://www.connellsgroup.co.uk/api-docs
+  status: 404
+- url: https://www.connellsgroup.co.uk/openapi.json
+  status: 404
+- url: https://www.connellsgroup.co.uk/swagger.json
+  status: 404
+- url: 'https://www.connellsgroup.co.uk/$metadata'
+  status: 404
+- url: https://www.connellsgroup.co.uk/.well-known/openid-configuration
+  status: 404
+- url: https://www.connellsgroup.co.uk/.well-known/security.txt
+  status: 404
+- url: https://www.connellsgroup.co.uk/llms.txt
+  status: 404
+- url: https://www.connellsgroup.co.uk/robots.txt
+  status: 200
+  note: Allow all; disallows /404/, /Oops/, *.axd; declares /xml-sitemap/.
+- url: https://www.connellsgroup.co.uk/sitemap.xml
+  status: 200
+  note: Serves the same URL set as /xml-sitemap/.
+- url: https://www.connellsgroup.co.uk/xml-sitemap/
+  status: 200
+  note: >-
+    88 URLs enumerated in full. Case-insensitive grep for
+    api|developer|data|integr|portal returned exactly two hits, both false
+    friends: /research/our-data/ and /research/who-we-help/developers/. No
+    swagger, openapi or /api path anywhere.
+- url: https://www.connellsgroup.co.uk/our-group/about-us/
+  status: 200
+  note: >-
+    Source of the identity figures used in apis.yml — subsidiary of Skipton
+    Building Society, 1,200+ branches, 16,000+ colleagues, 115,000 property
+    sales per year, 80+ local brands, 10% market share, 165,000+ tenancies,
+    £33bn+ mortgage lending, HQ at Cumbria House, 16-20 Hockliffe Street,
+    Leighton Buzzard, Bedfordshire LU7 1GN.
+- url: https://www.connellsgroup.co.uk/research/our-data/
+  status: 200
+  note: >-
+    Research data product. Real-time proprietary data from 1,200+ branches,
+    national/regional/local/postcode-level, blended with third-party sources at
+    UDPRN level, "Covering 88% of UK postcode areas". Access is a name/email/
+    message contact form plus "Request a brochure". No API, no feed, no
+    download, no format, no frequency, no pricing.
+- url: https://www.connellsgroup.co.uk/research/who-we-help/developers/
+  status: 200
+  note: >-
+    HOMONYM TRAP. "Developers" here means property and housing developers, not
+    software developers. Offers market insight, demand analysis and competitor
+    pipeline assessment via a contact form. No API, no feed, no integration.
+- url: https://www.connellsgroup.co.uk/research/request-a-brochure/
+  status: 200
+  note: In sitemap; the sales route to the research product.
+- url: https://www.connellsgroup.co.uk/our-services/surveys-and-valuations/
+  status: 200
+- url: https://www.connellsgroup.co.uk/news/
+  status: 200
+  note: >-
+    Corporate news including quarterly market reports and monthly market briefs.
+    Narrative only; no data attachments.
+- url: https://www.connellsgroup.co.uk/feed/
+  status: 404
+  note: No RSS.
+- url: https://www.connellsgroup.co.uk/rss
+  status: 404
+- url: https://www.connellsgroup.co.uk/news/feed/
+  status: 404
+- url: https://www.connellsgroup.co.uk/contact-us/
+  status: 200
+- url: https://www.connells.co.uk/
+  status: 200
+  note: Consumer estate agency site (Homeflow platform).
+- url: https://www.connells.co.uk/api
+  status: 404
+- url: https://www.connells.co.uk/developers
+  status: 404
+- url: https://www.connells.co.uk/api-docs
+  status: 404
+- url: https://www.connells.co.uk/openapi.json
+  status: 404
+- url: https://www.connells.co.uk/swagger.json
+  status: 404
+- url: 'https://www.connells.co.uk/$metadata'
+  status: 404
+- url: https://www.connells.co.uk/.well-known/openid-configuration
+  status: 404
+- url: https://www.connells.co.uk/llms.txt
+  status: 404
+- url: https://www.connells.co.uk/robots.txt
+  status: 200
+  note: Disallows only trovitBot; declares /sitemaps.xml.
+- url: https://www.connells.co.uk/sitemaps.xml
+  status: 200
+  note: >-
+    Sitemap index (24,298 bytes) listing counties, articles, pages, homepage,
+    branches, branch_listings, property_searches, custom_pages and per-prefix
+    location sitemaps. No developer or api entry.
+- url: https://www.connells.co.uk/sitemaps/property_searches
+  status: 200
+  note: Contains exactly two URLs — /properties/sales and /properties/lettings.
+- url: https://www.connells.co.uk/properties/sales
+  status: 200
+  note: >-
+    1,109,585 bytes. Scanned for machine surfaces: zero API hosts, zero relative
+    /api paths, zero graphql / $metadata / odata / swagger / openapi strings.
+    The only "reso" substring matches are inside unrelated words. Third-party
+    hosts named: homeflow.co.uk, mr0/mr1/mr3.homeflow-assets.co.uk,
+    connells.fixflo.com, myaccount.connells.co.uk, cdn.adfenix.com,
+    clients.yomdel.com, my.matterport.com, privacyportalde-cdn.onetrust.com.
+- url: https://www.connells.co.uk/services/surveys-and-valuations
+  status: 200
+- url: https://api.connells.co.uk/
+  status: '000'
+  note: Does not resolve.
+- url: https://developer.connells.co.uk/
+  status: '000'
+  note: Does not resolve.
+- url: https://status.connells.co.uk/
+  status: '000'
+  note: Does not resolve. No status page.
+- url: https://myaccount.connells.co.uk/
+  status: 200
+  note: >-
+    Consumer "MyAccount" ASP.NET application on Azure App Service. End-user
+    login, not a developer portal.
+- url: https://myaccount.connells.co.uk/.well-known/openid-configuration
+  status: 200
+  note: >-
+    NOT an OIDC discovery document. 302 to /logout, then 302 to
+    /Login?redir=%252Flogout, final body 141,695 bytes of text/html. Catch-all
+    redirect for unknown paths.
+- url: https://www.connells-surveyors.co.uk/
+  status: 200
+  note: Connells Survey & Valuation.
+- url: https://www.connells-surveyors.co.uk/our-services/professional-services/
+  status: 200
+  note: >-
+    Source of the partner-only finding — "totally integrated panel and risk
+    management technology solutions to lenders", phased implementation option,
+    40+ UK lenders, contact via csvnewbusiness@connells.co.uk. No developer
+    docs, no self-serve access, no specs.
+- url: https://www.connells-surveyors.co.uk/api
+  status: 404
+- url: https://www.connells-surveyors.co.uk/openapi.json
+  status: 404
+- url: https://www.connells-surveyors.co.uk/robots.txt
+  status: 200
+- url: https://api.connells-surveyors.co.uk/
+  status: '000'
+  note: Does not resolve.
+- url: https://developer.connells-surveyors.co.uk/
+  status: '000'
+  note: Does not resolve.
+- url: https://www.countrywide.co.uk/
+  status: 200
+  note: Countrywide brand site (group brand).
+- url: https://www.hamptons.co.uk/
+  status: 200
+  note: Hamptons brand site (group brand).
+- url: https://www.hamptons.co.uk/robots.txt
+  status: 200
+- url: https://api.hamptons.co.uk/
+  status: '000'
+  note: Does not resolve.
+- url: https://developer.hamptons.co.uk/
+  status: '000'
+  note: Does not resolve.
+- url: https://www.sequencehome.co.uk/
+  status: 200
+  note: Sequence brand site (group brand).
+- url: https://www.csurv.co.uk/
+  status: '000'
+  note: Does not resolve.
+- url: https://www.countrywidesurveying.co.uk/
+  status: '000'
+  note: Does not resolve.
+- url: https://www.cwsurveying.co.uk/
+  status: '000'
+  note: Does not resolve.
+- url: https://github.com/ConnellsGroup
+  status: 200
+  note: >-
+    GitHub USER account, not an organization. 0 public repos, no name, company,
+    bio or blog. Not listed in apis.yml.
+- url: https://api.github.com/orgs/connellsgroup
+  status: 404
+  note: No Connells Group GitHub organization.
+- url: https://www.linkedin.com/company/connells-group
+  status: 999
+  note: LinkedIn returns its standard anti-bot 999 to anonymous clients; the page
+    exists.
+- url: https://www.reso.org/certificates/
+  status: 200
+  note: >-
+    416,233 bytes. Searched for connells, countrywide, hamptons, sequence,
+    united kingdom, england — zero matches.
+
+findings:
+- Absence is the finding. The UK's largest estate agency group — 1,200+ branches,
+  ~10% of the market, ~115,000 sales a year — publishes no developer portal, no
+  API documentation, no machine-readable contract, no SDK, no Postman
+  collection, no changelog, no status page and not even an RSS feed.
+- The gate is partner-only rather than none-published, and the distinction is
+  deliberate. Connells does publish that programmatic integration exists — "totally
+  integrated panel and risk management technology solutions to lenders" for 40+
+  lenders, plus valuation instruction through Cotality's LenderHub — but the way
+  in is a panel management contract or a platform partnership, never a developer
+  registration. What is published is the existence of the integration, never its
+  interface.
+- The group's only /developers/ page is a homonym trap. It addresses property and
+  housing developers, and the searchable content there is market insight sold via
+  contact form. Any automated crawl looking for developer surfaces in this sector
+  will hit this trap repeatedly across UK estate agencies.
+- Connells is a data-rich company that sells data as a report, not as a feed. Its
+  research covers 88% of UK postcode areas and blends proprietary branch data with
+  third-party sources at UDPRN level — an unusually granular asset — and the only
+  published way to obtain it is to request a brochure.
+- No RESO anywhere, and structurally there could not be. RESO is a NAR/MLS
+  mechanism, the UK has no MLS, and the RESO certified-organizations directory
+  contains no UK entries at all. The de facto UK interchange format is the
+  Rightmove V3 BLM XML feed — a private portal's bulk upload spec, not a
+  standards-body contract. Certification is not merely unreachable here; the
+  layer does not exist.
+- No open data from Connells. The open UK property layer is HM Land Registry
+  Price Paid and Ordnance Survey — public sector, not brokerage. This is the
+  inverse of the United States, where the industry has a mandated machine-readable
+  standard but the government publishes almost nothing.
+- Connells consumes APIs heavily and publishes none. Homeflow runs its consumer
+  search, Fixflo runs its lettings repairs, Cotality carries its valuation
+  instructions, and Countrywide Surveying Services' Geoconnect engine is described
+  as connecting internal and external data sources through API integrations. Every
+  contract in that stack belongs to a vendor.
+- Unlike Savills, Connells does not even leak an internal endpoints manifest. The
+  1.1 MB consumer search page names no API host and no /api path. The private
+  estate is invisible from outside, which makes the absence of any public surface
+  harder to characterize as an oversight and easier to read as posture.
+
+sources:
+- url: https://www.connellsgroup.co.uk/our-group/about-us/
+  type: Reference
+  note: Corporate facts — Skipton Building Society ownership, 1,200+ branches,
+    16,000+ colleagues, 115,000 sales/year, 80+ brands, 10% share, 165,000+
+    tenancies, £33bn+ mortgage lending, Leighton Buzzard HQ.
+- url: https://www.connellsgroup.co.uk/xml-sitemap/
+  type: Reference
+  note: 88-URL sitemap containing zero developer, api, swagger or openapi paths.
+- url: https://www.connellsgroup.co.uk/research/our-data/
+  type: Reference
+  note: Research data product — 88% of UK postcode areas, UDPRN-level blending,
+    sold by contact form and brochure request.
+- url: https://www.connellsgroup.co.uk/research/who-we-help/developers/
+  type: Reference
+  note: The "developers" homonym trap — property developers, not software
+    developers.
+- url: https://www.connells-surveyors.co.uk/our-services/professional-services/
+  type: Reference
+  note: >-
+    "Totally integrated panel and risk management technology solutions to
+    lenders" — the partner-only integration route, 40+ lenders.
+- url: https://www.connells.co.uk/properties/sales
+  type: Reference
+  note: Consumer property search; Homeflow-powered; no API host, no /api path,
+    no spec strings.
+- url: https://www.reso.org/certificates/
+  type: Reference
+  note: RESO certified-organization list; no Connells, no UK entries.
+- url: https://www.connellsgroup.co.uk/contact-us/
+  type: Contact
+  note: The general corporate route; there is no developer channel.
+
+actions:
+  apisYmlCreated: true
+  apisListed: 0
+  specsHarvested: 0
+  openapiDirectory: null
+  status: built-stub
+  reason: >-
+    Identity captured faithfully with a fully documented probe trail, but there
+    is no public developer or API surface to profile. apis[] is empty because
+    listing anything would require fabricating it.
