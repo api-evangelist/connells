@@ -1,0 +1,93 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/connells-website-openapi.yml + live probe captures 2026-07-26
+docs: null
+format: proprietary
+rfc9457: false
+note: >-
+  Connells Group publishes no error reference. This catalogue is derived from
+  responses actually observed on https://www.connells.co.uk/api. The service
+  does not use RFC 9457 problem+json; it carries application-level errors inside
+  the same 200 envelope and reserves HTTP status codes for transport and edge
+  conditions.
+envelope:
+  style: in-band
+  description: >-
+    Application errors are returned with HTTP 200 and a JSON body whose `errors`
+    array carries objects with a single `message` string. An empty `results`
+    array accompanies them. The testimonials endpoint is inconsistent with the
+    rest: its key is singular (`error`) and holds an object rather than an array.
+  fields:
+    - name: errors
+      type: 'array of {message: string}'
+      nullable: true
+      used_by: [listBranches, getBranch, listStaff, listLocations, searchPlaces]
+    - name: error
+      type: object
+      nullable: true
+      used_by: [listTestimonials]
+      note: Inconsistent naming — singular, and not an array.
+    - name: results
+      type: array
+      note: Empty array accompanies an in-band error.
+    - name: result
+      type: object
+      nullable: true
+      note: >-
+        getBranch returns `result: null` with `errors: null` for a miss — a
+        not-found is signalled by a null payload, not by HTTP 404 and not by an
+        error message.
+problems:
+  - status: 200
+    code: name-required-places-search
+    title: Name required for places search
+    detail: >-
+      Returned verbatim as {"results":[],"errors":[{"message":"Name required for
+      places search"}]} when searchPlaces is called without the `name` query
+      parameter. A missing required parameter is reported as HTTP 200, not 400.
+    remediation: Supply the `name` query parameter.
+    source_operation: openapi/connells-website-openapi.yml#searchPlaces
+    observed: true
+  - status: 200
+    code: null-result
+    title: Null result for unknown branch
+    detail: >-
+      getBranch called with a slug rather than a numeric id returns
+      {"result":null,"errors":null} with HTTP 200. There is no 404 and no error
+      message, so clients must null-check the payload.
+    remediation: Use the numeric branch id returned by listBranches.
+    source_operation: openapi/connells-website-openapi.yml#getBranch
+    observed: true
+  - status: 429
+    code: too-many-requests
+    title: Too many requests
+    detail: >-
+      Plain-text body "Too many requests" returned by the Cloudflare edge, with
+      a Retry-After header (34 seconds observed). Not JSON — clients that assume
+      a JSON envelope will fail to parse this response.
+    remediation: Honour Retry-After and back off.
+    source_operation: all operations
+    observed: true
+  - status: 500
+    code: properties-handler-failure
+    title: Internal server error on the properties route
+    detail: >-
+      GET /api/properties returned HTTP 500 with a zero-byte body on every probe
+      on 2026-07-26, bare and with location, search, type and page parameters.
+      The route handler exists but does not function.
+    remediation: None available to a client; the route is broken server-side.
+    source_operation: openapi/connells-website-openapi.yml#listProperties
+    observed: true
+  - status: 404
+    code: unknown-route
+    title: Unknown route
+    detail: >-
+      Unmatched /api/* paths return the Next.js HTML 404 page with
+      content-type text/html, not JSON.
+    remediation: Use a documented path from the derived OpenAPI.
+    observed: true
+gaps:
+  - No RFC 9457 application/problem+json anywhere.
+  - No machine-readable error codes — only human-readable message strings.
+  - HTTP status codes are not used to signal application errors (400/404 absent).
+  - Error envelope naming is inconsistent between endpoints (`errors` vs `error`).

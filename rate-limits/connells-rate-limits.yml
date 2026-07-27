@@ -1,0 +1,38 @@
+generated: '2026-07-26'
+method: probed
+source: live anonymous HTTP probes of https://www.connells.co.uk/api on 2026-07-26
+docs: null
+published_policy: false
+note: >-
+  Connells Group publishes no rate-limit documentation. Everything below is
+  observed behaviour recorded during enrichment probing, not a provider claim.
+enforcement:
+  layer: Cloudflare edge
+  identity: anonymous IP
+  status_code: 429
+  body: Too many requests
+  body_content_type: text/plain; charset=UTF-8
+  retry_after_header: true
+  retry_after_seconds_observed: 34
+  standard_headers: false
+  note: >-
+    No RateLimit-Limit / RateLimit-Remaining / RateLimit-Reset (draft IETF
+    RateLimit header fields) and no X-RateLimit-* headers are returned on
+    successful responses, so a client has no forward signal of its budget — the
+    only signal is the 429 itself plus Retry-After.
+rate_limits:
+  - name: anonymous-burst
+    scope: per client IP, across all /api/* route handlers on www.connells.co.uk
+    limit_count: null
+    interval: null
+    limit_observed: >-
+      Sustained sequential probing of roughly 15 distinct /api/* paths tripped
+      the limit; the exact threshold is not published and was not measured.
+    retry_after_seconds: 34
+    response_status: 429
+pagination_ceiling:
+  note: >-
+    A second, harder throughput constraint is that the list endpoints cap output
+    at a fixed 12 records per call and honour no paging parameter, so the full
+    162-branch and 841-staff collections are not retrievable through the
+    endpoints at all. See conventions/connells-conventions.yml.

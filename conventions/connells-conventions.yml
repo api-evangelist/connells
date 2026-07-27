@@ -1,0 +1,113 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/connells-website-openapi.yml + live probe captures 2026-07-26
+docs: null
+published: false
+note: >-
+  Connells Group publishes no API style guide, developer documentation or
+  conventions reference. This artifact records the cross-cutting semantics
+  observed on the undocumented https://www.connells.co.uk/api surface so that a
+  consumer knows what it is actually dealing with. Several entries below record
+  the ABSENCE of a convention — that is real, useful data, not a gap to paper
+  over.
+authentication:
+  style: none
+  detail: All endpoints answer anonymous requests. See authentication/connells-authentication.yml.
+idempotency:
+  supported: false
+  header: null
+  detail: >-
+    There is no idempotency contract. The surface is read-only — OPTIONS on
+    /api/branches reports "Allow: GET, HEAD, OPTIONS" and no write operation was
+    found anywhere — so GET is nominally idempotent by HTTP semantics, but the
+    provider documents no idempotency key, no retry safety guarantee and no
+    deduplication window. No Idempotency pointer is claimed for this provider.
+pagination:
+  style: page-envelope
+  honoured: false
+  request_params: []
+  detail: >-
+    Responses carry a `pagination` object with totalCount, currentPage,
+    pageSize, pageCount, hasPrevPage and hasNextPage — advertising 162 branches
+    across 14 pages and 841 staff across 71 pages — but NO request parameter
+    moves the cursor. page, pageSize, per_page, limit and offset were each
+    probed against listBranches and every one returned page 1 with the same 12
+    records. The pagination metadata is therefore descriptive only; pages 2..n
+    are not reachable through this surface.
+  response_fields:
+    - totalCount
+    - currentPage
+    - pageSize
+    - pageCount
+    - hasPrevPage
+    - hasNextPage
+  page_size: 12
+  page_size_configurable: false
+  inconsistency: >-
+    listTestimonials returns `pagination: null` and listLocations returns a bare
+    array with no envelope at all, so three different response shapes coexist
+    across six operations.
+filtering:
+  supported: false
+  detail: >-
+    lat, lng, distance, search, q, query, slug, service and isLettingsEnabled
+    were all probed against listBranches and none changed the result set. The
+    single exception is searchPlaces, which requires a `name` parameter and does
+    filter on it.
+field_expansion:
+  supported: false
+  detail: >-
+    No sparse-fieldset or expansion parameter. Related objects are eagerly
+    embedded instead — a Branch always carries its full branchManager object and
+    its services array inline.
+metadata:
+  supported: false
+  detail: No user-defined metadata surface.
+request_tracing:
+  request_id_header: false
+  detail: >-
+    The Next.js route handlers return no request-id header. The Homeflow Rails
+    application behind the sibling brand sites does return X-Request-Id, but
+    that host is not part of this surface.
+versioning:
+  scheme: none
+  current: null
+  detail: >-
+    No version segment in the path, no version header, no date-based version and
+    no published version policy. The base path is a bare /api. Any change is
+    silent and breaking by default.
+error_envelope:
+  style: in-band
+  detail: >-
+    Application errors ride inside an HTTP 200 body under `errors` (array of
+    {message}); the testimonials endpoint uses a singular `error` object
+    instead. HTTP status codes are reserved for transport and edge conditions.
+    See errors/connells-problem-types.yml.
+rate_limit_signalling:
+  forward_signal: false
+  detail: >-
+    No RateLimit-* or X-RateLimit-* headers on success. The only signal is a
+    Cloudflare HTTP 429 with a plain-text body and a Retry-After header. See
+    rate-limits/connells-rate-limits.yml.
+content_negotiation:
+  detail: >-
+    Responses are application/json on success but text/plain on 429 and
+    text/html on 404, so a client cannot assume a JSON body from any status.
+identifiers:
+  detail: >-
+    Two identifier families coexist. Branches and staff use integer ids (8020,
+    23232373) plus a human slug; locations and places use 24-character
+    hexadecimal ObjectId strings, reflecting the Homeflow platform underneath.
+    getBranch accepts the integer id only — the slug silently returns a null
+    result.
+transport_security:
+  detail: >-
+    HTTPS with TLS 1.3, HSTS max-age 31536000 with includeSubDomains and
+    preload, plus content-security-policy frame-ancestors 'self'. See
+    security/connells-domain-security.yml.
+cross_links:
+  errors: errors/connells-problem-types.yml
+  authentication: authentication/connells-authentication.yml
+  rate_limits: rate-limits/connells-rate-limits.yml
+  lifecycle: lifecycle/connells-lifecycle.yml
+  data_model: data-model/connells-data-model.yml

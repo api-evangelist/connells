@@ -1,0 +1,38 @@
+generated: '2026-07-26'
+method: probed
+source: live anonymous HTTP probes of https://www.connells.co.uk/api on 2026-07-26
+docs: null
+summary:
+  types: []
+  api_key_in: []
+  oauth2_flows: []
+  model: none
+  anonymous: true
+schemes: []
+findings:
+  - >-
+    Every observed endpoint on https://www.connells.co.uk/api answers
+    unauthenticated requests with HTTP 200 and a full JSON body. No API key
+    header, no bearer token, no cookie and no signed request was required on any
+    of listBranches, getBranch, listStaff, listTestimonials, listLocations or
+    searchPlaces.
+  - >-
+    No WWW-Authenticate header was returned on any response, and no 401 or 403
+    was produced by any probe.
+  - >-
+    /.well-known/openid-configuration and /.well-known/oauth-authorization-server
+    return 404 on connellsgroup.co.uk, connells.co.uk, hamptons.co.uk and
+    connells-surveyors.co.uk, so there is no OAuth or OIDC authorization server
+    to discover. See well-known/connells-well-known.yml.
+  - >-
+    The only access control observed is volumetric, not identity-based:
+    Cloudflare returns HTTP 429 "Too many requests" with Retry-After when the
+    endpoints are polled quickly. See rate-limits/connells-rate-limits.yml.
+  - >-
+    myaccount.connells.co.uk is a consumer property account login, not a
+    developer or API credential surface, and it does not front these endpoints.
+caveat: >-
+  Absence of authentication here is an observation about an undocumented
+  internal website endpoint, not a Connells Group statement of open access.
+  Connells Group publishes no API terms, no rate-limit policy and no acceptable
+  use policy covering these endpoints.

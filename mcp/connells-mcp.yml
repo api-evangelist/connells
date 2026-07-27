@@ -1,0 +1,66 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/connells-website-openapi.yml
+status: candidate
+published_by_provider: false
+note: >-
+  Connells Group publishes NO MCP server. No hosted server, no npm package, no
+  registry entry, and no agent or AI documentation exists anywhere in the
+  estate. The tools below are a CANDIDATE surface derived one-to-one from the
+  operations in the derived OpenAPI, offered as a design starting point only.
+  No MCPServer pointer is claimed in apis.yml — claiming one would assert a
+  hosted capability that does not exist.
+server:
+  name: connells
+  transport: null
+  url: null
+  registry_entry: null
+tools:
+  - name: list_connells_branches
+    description: >-
+      List Connells estate agency branches with address, coordinates, phone
+      numbers, service lines and branch manager. Returns the first 12 of 162;
+      the remainder are not reachable.
+    source_operation: openapi/connells-website-openapi.yml#listBranches
+    read_only: true
+  - name: get_connells_branch
+    description: Get a single Connells branch by its numeric id.
+    source_operation: openapi/connells-website-openapi.yml#getBranch
+    read_only: true
+    input:
+      branchId: integer, required, numeric branch id from list_connells_branches
+  - name: list_connells_staff
+    description: >-
+      List Connells colleagues with job title, branch id and biography. Returns
+      the first 12 of 841.
+    source_operation: openapi/connells-website-openapi.yml#listStaff
+    read_only: true
+  - name: list_connells_testimonials
+    description: List published Connells customer testimonials with date and county.
+    source_operation: openapi/connells-website-openapi.yml#listTestimonials
+    read_only: true
+  - name: list_connells_locations
+    description: List Connells geography records (county-level and address-level).
+    source_operation: openapi/connells-website-openapi.yml#listLocations
+    read_only: true
+  - name: search_connells_places
+    description: >-
+      Look up UK places by name and return matching place labels, ids and slugs.
+    source_operation: openapi/connells-website-openapi.yml#searchPlaces
+    read_only: true
+    input:
+      name: string, required, free-text place name
+caveats:
+  - >-
+    Every tool is read-only; the underlying surface exposes no write operation
+    (Allow: GET, HEAD, OPTIONS).
+  - >-
+    A server built on these operations would be rate limited by Cloudflare (429
+    with Retry-After) and could not paginate past the first 12 records of any
+    collection.
+  - >-
+    No property listing tool is possible — the /api/properties route returns
+    HTTP 500 and there is no other listings surface.
+  - >-
+    The endpoints are undocumented and unversioned; any such server would be
+    building on an interface Connells has made no commitment about.

@@ -1,0 +1,127 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/connells-website-openapi.yml
+docs: null
+note: >-
+  Entity graph derived from the schemas in the derived OpenAPI, which were
+  themselves transcribed from live response bodies. Connells Group publishes no
+  object reference, so nothing here comes from documentation.
+entities:
+  - name: Branch
+    description: A Connells high-street office.
+    id_field: id
+    id_type: integer
+    slug_field: slug
+    operations: [listBranches, getBranch]
+    count_observed: 162
+    fields_of_note:
+      - lat / lng — WGS84 coordinates, so branches are geocodable
+      - displayAddress — newline-delimited postal address, not structured
+      - agencyId — an unexplained second identifier (909 observed); likely the
+        Homeflow agency the branch belongs to
+      - isSalesEnabled / isLettingsEnabled — service flags duplicated by the
+        services array
+      - departments — present on every record but observed empty everywhere
+      - distance — present but null; presumably filled by a proximity search
+        that this surface does not expose
+  - name: StaffMember
+    description: A Connells colleague. Doubles as the embedded branch manager.
+    id_field: id
+    id_type: integer
+    slug_field: slug
+    operations: [listStaff]
+    count_observed: 841
+    fields_of_note:
+      - branchId — the only foreign key in the model
+      - email and mobileNumber were null on every record sampled, so the staff
+        directory is not a contact-harvesting surface
+  - name: BranchService
+    description: A service line offered at a branch (Sales, Lettings, Land and New Homes).
+    id_field: null
+    embedded_in: Branch
+    fields_of_note:
+      - service, phone_number, fax_number, email_address, enabled
+      - service names observed — Sales, Lettings, Land and New Homes
+  - name: Testimonial
+    description: A published customer review.
+    id_field: id
+    id_type: integer
+    operations: [listTestimonials]
+    fields_of_note:
+      - contactCounty is the only geography, and it is a free-text county name
+        with no link to Location or Branch
+      - displayDate (DD/MM/YYYY string) and createdAt (ISO 8601) carry the same
+        date in two formats
+  - name: Location
+    description: A county-level or address-level geography record.
+    id_field: id
+    id_type: string (24-char hex / ObjectId)
+    operations: [listLocations]
+    fields_of_note:
+      - name and urlLabel were empty strings on several records
+      - countyName is the only reliably populated field
+  - name: PlaceMatch
+    description: >-
+      A place-name autocomplete hit, returned as a positional 3-string array
+      rather than an object.
+    id_field: index 1 (24-char hex / ObjectId)
+    operations: [searchPlaces]
+    fields_of_note:
+      - '[0] display label, e.g. "Bedford, Bedfordshire"'
+      - '[1] place id, same ObjectId family as Location.id'
+      - '[2] place slug, e.g. "bedford"'
+relationships:
+  - from: Branch
+    to: StaffMember
+    kind: has_one
+    via: branchManager
+    binding: embedded object
+    confidence: high
+  - from: Branch
+    to: BranchService
+    kind: has_many
+    via: services
+    binding: embedded array
+    confidence: high
+  - from: StaffMember
+    to: Branch
+    kind: belongs_to
+    via: branchId
+    binding: foreign key to Branch.id
+    confidence: high
+  - from: Branch
+    to: Location
+    kind: implied
+    via: displayAddress county text
+    binding: none — no identifier links a Branch to a Location record
+    confidence: low
+    note: >-
+      There is no join key. Branch geography is free-text inside displayAddress
+      plus lat/lng; Location and PlaceMatch live in a separate ObjectId
+      namespace. This is the clearest structural gap in the model.
+  - from: Testimonial
+    to: Branch
+    kind: implied
+    via: contactCounty
+    binding: none — free-text county only
+    confidence: low
+  - from: PlaceMatch
+    to: Location
+    kind: same_namespace
+    via: ObjectId
+    binding: shared 24-char hex identifier family
+    confidence: medium
+observations:
+  - >-
+    The graph has exactly one real foreign key (StaffMember.branchId). Everything
+    else is either embedded eagerly or joined only by free text.
+  - >-
+    Two identifier namespaces coexist — integer ids for the agency-side entities
+    (Branch, StaffMember, Testimonial) and ObjectId strings for the geography
+    entities (Location, PlaceMatch) — which is consistent with the geography
+    coming from the underlying Homeflow platform rather than from Connells.
+  - >-
+    There is no Property entity. The one route that would carry it,
+    /api/properties, returns HTTP 500. Property listings on the consumer site
+    are server-rendered from Homeflow, so the group's core asset — its ~115,000
+    sales a year of stock — is absent from this surface entirely.

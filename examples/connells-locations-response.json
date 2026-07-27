@@ -1,0 +1,38 @@
+[
+  {
+    "id": "590a049361034ea359e75f51",
+    "name": "",
+    "countyName": "West Yorkshire",
+    "urlLabel": ""
+  },
+  {
+    "id": "65c0eeb428ac0d94d0632584",
+    "name": "",
+    "countyName": "South East",
+    "urlLabel": ""
+  },
+  {
+    "id": "65d8c00428ac0d94d0743af3",
+    "name": "",
+    "countyName": "Aberdeen City",
+    "urlLabel": ""
+  },
+  {
+    "id": "5f199d773304011757ceb4c3",
+    "name": "22 LADE BRAES",
+    "countyName": "Fife",
+    "urlLabel": "22-lade-braes"
+  },
+  {
+    "id": "5f181cb333040117577e7ff9",
+    "name": "26 YORK PLACE",
+    "countyName": "City of Edinburgh",
+    "urlLabel": "26-york-place"
+  },
+  {
+    "id": "5d4ad1f6fa3b0e59fbbdd966",
+    "name": "40-42 MELVILLE STREET",
+    "countyName": "City of Edinburgh",
+    "urlLabel": "40-42-melville-street"
+  }
+]

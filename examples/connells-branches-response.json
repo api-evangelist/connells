@@ -1,0 +1,116 @@
+{
+  "results": [
+    {
+      "id": 8020,
+      "slug": "abingdon",
+      "name": "Abingdon",
+      "mainPhoto": "https://mr0.homeflow-assets.co.uk/files/branch_photo/image/6273/6720/_x_/15a2152.jpg",
+      "email": "abingdon@connells.co.uk",
+      "description": "You’ll find us on the High Street in Abingdon, covering a wide range of local areas including Abingdon, Wantage, Wallingford and Didcot, as well as surrounding villages such as Berinsfield, Southmoor, Sutton Courtenay, Harwell and Radley\n.\nOur Abingdon team is committed to delivering the highest levels of customer service. We are well-trained, highly motivated and focused on achieving the best possible results for our clients.\n\nAt the branch, we offer a wide range of services including residential sales, shared ownership, new homes and land opportunities, working with well-regarded developers such as David Wilson Homes and Elivia Homes. Our marketing approach ensures your property reaches the widest audience, with listings across the three major property portals - Rightmove, Zoopla and OnTheMarket.\n\nWe also offer lettings services, with coverage for Abingdon, Didcot and surrounding villages managed by our Cowley branch. In addition, our in-house mortgage services are available to guide you through the buying process or review your current options.\n\nOur team brings the energy, drive and commitment needed to support you, whatever your property goals may be. If you are thinking of moving this year, start your journey with us today, we are here to help every step of the way.",
+      "lat": 51.6701702207,
+      "lng": -1.2827574378,
+      "displayAddress": "11 High Street\nABINGDON\nOxfordshire\nOX14 5BB",
+      "contactTelephone": "01235 555611",
+      "urlLabel": "abingdon",
+      "salesTelephone": "01235 555611",
+      "lettingsTelephone": "01235 523985",
+      "branchManager": {
+        "id": 26366590,
+        "slug": "charlie-rose-white",
+        "name": "Charlie-Rose White",
+        "jobTitle": "Senior Branch Manager",
+        "avatar": "https://mr0.homeflow-assets.co.uk/files/avatar/image/6893/3567/_x_/1-65001eefc11.jpg",
+        "mobileNumber": null,
+        "email": null,
+        "urlLabel": "charlie-rose-white",
+        "team": null,
+        "shortBio": "Charlie-Rose is a property expert with 13+ years’ experience in management, lettings, and sales. Known for transforming underperforming offices, she’s driven by honesty, professionalism, and results—earning outstanding client reviews and trusted recommendations.",
+        "longBio": null,
+        "branchId": 8020
+      },
+      "services": [
+        {
+          "service": "Sales",
+          "phone_number": "01235 555611",
+          "fax_number": "01235 553693",
+          "email_address": "abingdon@connells.co.uk",
+          "enabled": true
+        },
+        {
+          "service": "Lettings",
+          "phone_number": "01235 523985",
+          "fax_number": "01235 553693",
+          "email_address": "abingdonlet@connells.co.uk",
+          "enabled": true
+        },
+        {
+          "service": "Land and New Homes",
+          "phone_number": "",
+          "fax_number": "",
+          "email_address": "",
+          "enabled": true
+        }
+      ],
+      "agencyId": 909,
+      "isSalesEnabled": true,
+      "isLettingsEnabled": true,
+      "departments": [],
+      "distance": null,
+      "branchUrl": "/estate-agents/abingdon"
+    },
+    {
+      "id": 16459,
+      "slug": "amesbury",
+      "name": "Amesbury",
+      "mainPhoto": "https://mr0.homeflow-assets.co.uk/files/branch_photo/image/6273/6596/_x_/4.JPG",
+      "email": "amesbury@connells.co.uk",
+      "description": "For a FREE VALUATION along with MARKETING AND PRESENTATION ADVICE why not call us today on 01980 622 662\n\nWe handle all types of property in Amesbury and the surrounding villages and having operated in the area for many years we have helped countless people move home. Our office can also offer a wide range of other home moving services to buyers and sellers, including mortgage services and conveyancing and organising energy performance certificates (EPCs).\n\nWe will also market your property along the A303 corridor via our offices in Andover and Basingstoke. In combination with marketing from our offices in Amesbury and Salisbury this opens up your property to a much larger database of potential buyers.\n\nOur services include:\n - Bespoke Brochures\n- Multi Office Marketing\n- Open House Marketing\n- Mortgage Services\n- Regular Feedback to Vendors\n- In-house Conveyancing\n- Preparation of EPCs\n- Auctions",
+      "lat": 51.1719869519,
+      "lng": -1.7804020747,
+      "displayAddress": "Unit 3 23 Salisbury Street\nSALISBURY\nWiltshire\nSP4 7AW",
+      "contactTelephone": "01980622662",
+      "urlLabel": "amesbury",
+      "salesTelephone": "01980 622 662",
+      "lettingsTelephone": "01980 622 662",
+      "branchManager": null,
+      "services": [
+        {
+          "service": "Sales",
+          "phone_number": "01980 622 662",
+          "fax_number": "01980 625999",
+          "email_address": "amesbury@connells.co.uk",
+          "enabled": true
+        },
+        {
+          "service": "Lettings",
+          "phone_number": "01980 622 662",
+          "fax_number": null,
+          "email_address": "amesburylet@connells.co.uk",
+          "enabled": true
+        },
+        {
+          "service": "Land and New Homes",
+          "phone_number": "",
+          "fax_number": "",
+          "email_address": "",
+          "enabled": true
+        }
+      ],
+      "agencyId": 909,
+      "isSalesEnabled": true,
+      "isLettingsEnabled": true,
+      "departments": [],
+      "distance": null,
+      "branchUrl": "/estate-agents/amesbury"
+    }
+  ],
+  "pagination": {
+    "totalCount": 162,
+    "currentPage": 1,
+    "pageSize": 12,
+    "pageCount": 14,
+    "hasPrevPage": false,
+    "hasNextPage": true
+  },
+  "errors": null
+}

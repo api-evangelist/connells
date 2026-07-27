@@ -576,13 +576,108 @@ sources:
   type: Contact
   note: The general corporate route; there is no developer channel.
 
+contractDiscovery2026_07_26:
+  round: 2 (enrichment)
+  date: '2026-07-26'
+  outcome: >-
+    The round-1 conclusion that no machine-readable surface exists was
+    INCOMPLETE and is corrected here. Round 1 probed the docs-host paths
+    (/openapi.json, /swagger.json, /api-docs, /graphql, /$metadata) and the
+    property-search HTML, all of which correctly returned nothing. It did not
+    enumerate the Next.js App Router route handlers on www.connells.co.uk, and
+    six live, anonymous, read-only JSON endpoints were sitting there.
+  howItWasFound: >-
+    www.connells.co.uk serves a hybrid site — Homeflow-rendered property pages
+    plus a Next.js shell (33 chunks on the homepage, _next/static assets, and a
+    "vary: rsc, next-router-state-tree" header on route responses). A bare
+    /api returns 404, which is what makes the surface invisible to a top-level
+    probe. Sweeping plausible route-handler names underneath /api is what
+    surfaced it: /api/properties answered 500 rather than 404, which proved
+    handlers existed, and the sweep from there found the working ones.
+  liveEndpoints:
+  - {path: /api/branches, method: GET, status: 200, contentType: application/json,
+     note: '162 branches advertised, 12 returned; no paging parameter honoured'}
+  - {path: '/api/branches/{id}', method: GET, status: 200, contentType: application/json,
+     note: 'numeric id only; slug returns result:null with no 404'}
+  - {path: /api/staff, method: GET, status: 200, contentType: application/json,
+     note: '841 staff advertised, 12 returned'}
+  - {path: /api/testimonials, method: GET, status: 200, contentType: application/json,
+     note: 'inconsistent envelope: pagination null, singular error key'}
+  - {path: /api/locations, method: GET, status: 200, contentType: application/json,
+     note: 'bare array, no envelope; ObjectId identifiers'}
+  - {path: /api/places, method: GET, status: 200, contentType: application/json,
+     note: 'requires name param; returns positional 3-string arrays'}
+  - {path: /api/properties, method: GET, status: 500, contentType: null,
+     note: 'route handler exists but fails on every input; empty body'}
+  methodsAllowed: 'GET, HEAD, OPTIONS (from OPTIONS /api/branches)'
+  authentication: none — no credential of any kind required
+  rateLimiting: >-
+    Cloudflare HTTP 429, plain-text body "Too many requests", Retry-After 34
+    observed. No RateLimit-* headers on success. Tripped during the route sweep.
+  brandSiteSpread:
+    note: >-
+      The handlers are specific to www.connells.co.uk. Probed strictly (no
+      redirect following) across the group estate.
+    results:
+    - {host: www.connells.co.uk, apiBranches: 200 JSON, apiProperties: 500}
+    - {host: www.countrywide.co.uk, apiBranches: 301, apiProperties: 301}
+    - {host: www.hamptons.co.uk, apiBranches: 302, apiProperties: 302}
+    - {host: www.sequencehome.co.uk, apiBranches: 302, apiProperties: 302}
+    - {host: www.bairstoweves.co.uk, apiBranches: 302, apiProperties: 302}
+    - {host: www.fox-and-sons.co.uk, apiBranches: 302, apiProperties: 302}
+    - {host: www.johndwood.co.uk, apiBranches: 302, apiProperties: 302}
+    - {host: www.blundells.com, apiBranches: 302, apiProperties: 302}
+    - {host: www.barnardmarcus.co.uk, apiBranches: 302, apiProperties: 302}
+    - {host: www.williamhbrown.co.uk, apiBranches: 302, apiProperties: 302}
+    - {host: www.gascoignehalman.co.uk, apiBranches: 404 HTML, apiProperties: 404 HTML}
+    interpretation: >-
+      The 302 hosts run the Homeflow Rails application directly (Rails session
+      cookie _ctesius2_session, x-runtime and x-request-id headers) and bounce
+      /api/* to their homepage. Gascoigne Halman is on a third platform.
+      Connells is the only brand with a Next.js layer in front, and that layer
+      is where the handlers live.
+  otherNegatives:
+  - GraphQL — /api/graphql 404; no graphql string in any of the 33 homepage JS chunks.
+  - No /api/* path or external API host appears anywhere in the client bundle;
+    the site fetches server-side, which is why the handlers leave no trace in HTML.
+  - No .well-known document resolves on any of the four significant hosts.
+  - No llms.txt anywhere.
+  - Sibling routes probed and absent — search, valuation, contact, enquiry,
+    newsletter, listings, reviews, config, menu, filters and ~40 others 404.
+  npmFinding:
+    package: '@connells-group/design-tokens__con'
+    firstParty: true
+    evidence: maintainer Ebrahim.Saleh@connellsgroup.co.uk
+    note: >-
+      Website colour tokens (JSON + SCSS) last published 2022-04-05. The only
+      first-party package on any public registry, and not an API client.
+  githubFinding:
+    note: >-
+      github.com/connells is an unrelated individual; github.com/ConnellsGroup is
+      an empty personal account with zero repositories. No first-party GitHub
+      organisation was established.
+  assessment: >-
+    Connells Group still has no API programme, and nothing here should be read
+    as one. What changed is the accuracy of the record: the estate is not
+    machine-silent, it is machine-careless. A handful of internal website
+    endpoints serve real branch, staff, testimonial and geography data to
+    anyone who asks, with no documentation, no version, no terms, no support,
+    inconsistent envelopes, errors hidden inside HTTP 200 bodies, pagination
+    metadata that advertises 162 branches the surface cannot actually deliver,
+    and one route that has simply been failing with a 500. That is a more
+    interesting and more honest finding than "no surface exists".
+
 actions:
   apisYmlCreated: true
   apisListed: 0
   specsHarvested: 0
   openapiDirectory: null
-  status: built-stub
+  status: enriched
   reason: >-
-    Identity captured faithfully with a fully documented probe trail, but there
-    is no public developer or API surface to profile. apis[] is empty because
-    listing anything would require fabricating it.
+    Round 1 captured identity faithfully with a documented probe trail and
+    correctly found no PUBLISHED developer or API surface. Round 2 enrichment
+    went further into the Next.js route handlers and found six live anonymous
+    read-only JSON endpoints at www.connells.co.uk/api. apis[] now lists that
+    one surface, explicitly labelled undocumented and unsupported, with an
+    OpenAPI derived from captured live responses rather than from anything
+    Connells published. See contractDiscovery2026_07_26.

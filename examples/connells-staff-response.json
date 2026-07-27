@@ -1,0 +1,55 @@
+{
+  "results": [
+    {
+      "id": 23232373,
+      "slug": "paul-barron",
+      "name": "Paul Barron",
+      "jobTitle": "Instructions Manager",
+      "avatar": "https://mr0.homeflow-assets.co.uk/files/avatar/image/6274/3966/_x_/446-57666.jpg",
+      "mobileNumber": null,
+      "email": null,
+      "urlLabel": "paul-barron",
+      "team": null,
+      "shortBio": "Paul is a highly motivated & passionate agent who strives towards a positive outcome for all his clients. With over 14 years of agency in various locations of Dorset such as Dorchester, Gillingham & returning to his home town Weymouth in 2021. His knowledge and experience of the property market makes him a valuable asset to the team, providing our vendors, developers and purchasers with expert advice.",
+      "longBio": null,
+      "branchId": 11009
+    },
+    {
+      "id": 23232636,
+      "slug": "olivia-beaumont",
+      "name": "Olivia Beaumont",
+      "jobTitle": "Assistant Lettings Manager",
+      "avatar": "https://mr0.homeflow-assets.co.uk/files/avatar/image/6274/4298/_x_/465-238373.jpg",
+      "mobileNumber": null,
+      "email": null,
+      "urlLabel": "olivia-beaumont",
+      "team": null,
+      "shortBio": "Olivia is the Assistant Lettings Manager for Connells Worcester. Olivia started her career at Connells over three years ago and has quickly become an expert in all things lettings. If you have a property you need letting quickly, or are simply looking for a new rental, Olivia is here to assist.",
+      "longBio": null,
+      "branchId": 17861
+    },
+    {
+      "id": 23229551,
+      "slug": "sasha-beech",
+      "name": "Sasha Beech",
+      "jobTitle": "Senior Instructions Manager",
+      "avatar": "https://mr0.homeflow-assets.co.uk/files/avatar/image/6274/0247/_x_/225-65196.jpg",
+      "mobileNumber": null,
+      "email": null,
+      "urlLabel": "sasha-beech",
+      "team": null,
+      "shortBio": "Sasha is our Senior Instructions Manager here in our Kidderminster office and has been with Connells since 2018. Having started in the Harborne branch as a Negotiator, Sasha has been promoted and is now valuing properties in Kidderminster and the surrounding areas. Sasha has a vast amount of experience within the industry, winning company awards for her dedication to making the process of selling your property as stress free as possible.",
+      "longBio": null,
+      "branchId": 11071
+    }
+  ],
+  "pagination": {
+    "totalCount": 841,
+    "currentPage": 1,
+    "pageSize": 12,
+    "pageCount": 71,
+    "hasPrevPage": false,
+    "hasNextPage": true
+  },
+  "errors": null
+}

@@ -1,0 +1,48 @@
+generated: '2026-07-26'
+method: probed
+source: live HTTP probes 2026-07-26
+result: none
+note: >-
+  Nothing was found. Every /.well-known document was probed on all four
+  significant Connells Group hosts and every one returned 404. No WellKnown or
+  SecurityTxt pointer is claimed in apis.yml, because there is genuinely no
+  well-known catalogue here — this file exists as the evidence record, not as a
+  discovery surface.
+hosts:
+  - host: https://www.connellsgroup.co.uk
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /robots.txt, status: 200, note: present but carries no API or well-known reference}
+  - host: https://www.connells.co.uk
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /robots.txt, status: 200}
+      - {path: /llms.txt, status: 404}
+  - host: https://www.hamptons.co.uk
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /robots.txt, status: 200}
+  - host: https://www.connells-surveyors.co.uk
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /robots.txt, status: 200}
+documents: []
+security_txt:
+  present: false
+  file: null

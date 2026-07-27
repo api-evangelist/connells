@@ -1,0 +1,144 @@
+generated: '2026-07-26'
+method: searched
+source: >-
+  live probes of the Connells Group estate 2026-07-26 +
+  https://www.connellsgroup.co.uk/legal-notices/ +
+  https://www.connellsgroup.co.uk/required-disclosures-inc-modern-slavery-act-statement/
+note: >-
+  Two distinct things are recorded here. `standards` covers API and data
+  interoperability standards, and Connells conforms to essentially none of them.
+  `regulatory` covers the corporate and sectoral regulatory registrations
+  Connells Group genuinely publishes — these are real, verified and named on
+  their own site, but they are financial-services and consumer-protection
+  registrations, not API security certifications. Do not read the regulatory
+  block as SOC 2 / ISO 27001 equivalence; no such certification was found
+  anywhere in the estate.
+standards:
+  - id: openapi
+    conforms: false
+    evidence: >-
+      No OpenAPI or Swagger document is published anywhere. /openapi.json,
+      /openapi.yaml, /swagger.json, /api-docs and /docs return 404 on
+      connellsgroup.co.uk, connells.co.uk, hamptons.co.uk, countrywide.co.uk,
+      sequencehome.co.uk and connells-surveyors.co.uk. The spec in this repo is
+      API Evangelist's own derivation from live probes.
+  - id: graphql
+    conforms: false
+    evidence: /api/graphql returns 404; no graphql string appears in any page or JS chunk.
+  - id: asyncapi
+    conforms: false
+    evidence: No event, streaming or webhook surface of any kind was found.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      /.well-known/oauth-authorization-server returns 404 on every host probed;
+      no OAuth flow, authorization endpoint or token endpoint exists.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 404 on every host probed.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors are returned in-band inside HTTP 200 bodies as {"errors":[{"message":...}]};
+      no application/problem+json is produced. See errors/connells-problem-types.yml.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 on all four hosts probed.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset or Deprecation header on any response; no deprecation policy published.
+  - id: rfc8615-well-known
+    conforms: false
+    evidence: >-
+      No /.well-known document of any kind resolved. See
+      well-known/connells-well-known.yml.
+  - id: ietf-ratelimit-headers
+    conforms: false
+    evidence: >-
+      Rate limiting is enforced (Cloudflare 429 with Retry-After) but no
+      RateLimit-Limit / RateLimit-Remaining / RateLimit-Reset headers are sent.
+      Retry-After (RFC 9110) is the only standard signal present.
+  - id: rfc9110-retry-after
+    conforms: true
+    evidence: 429 responses carry Retry-After (34 seconds observed).
+  - id: reso-web-api
+    conforms: false
+    evidence: >-
+      No RESO reference anywhere in the estate. RESO is a North American NAR/MLS
+      construct; the United Kingdom has no MLS to certify against. See
+      review.yml resoPosture.
+  - id: reso-data-dictionary
+    conforms: false
+    evidence: No RESO Data Dictionary vocabulary in any observed payload.
+  - id: odata
+    conforms: false
+    evidence: /$metadata returns 404; no OData query syntax is honoured.
+  - id: json-api
+    conforms: false
+    evidence: >-
+      Response envelopes are ad hoc ({results,pagination,errors},
+      {result,errors}, and a bare array) — not JSON:API.
+  - id: upi-universal-property-identifier
+    conforms: false
+    evidence: No UPI or other portable property identifier appears in any payload.
+  - id: schema-org
+    conforms: partial
+    evidence: >-
+      schema.org markup is present in the consumer website HTML (www.schema.org
+      referenced on the property search page), but not in any JSON API payload.
+  - id: hsts-preload
+    conforms: true
+    evidence: >-
+      www.connells.co.uk returns strict-transport-security max-age=31536000;
+      includeSubDomains; preload. www.connellsgroup.co.uk does NOT send HSTS.
+      See security/connells-domain-security.yml.
+  - id: dnssec
+    conforms: false
+    evidence: DNSSEC not enabled on connellsgroup.co.uk or connells.co.uk.
+  - id: caa
+    conforms: false
+    evidence: No CAA records on connellsgroup.co.uk or connells.co.uk.
+  - id: dmarc
+    conforms: true
+    evidence: DMARC published with policy reject on both connellsgroup.co.uk and connells.co.uk.
+regulatory:
+  published: true
+  source: https://www.connellsgroup.co.uk/legal-notices/
+  disclosures_page: https://www.connellsgroup.co.uk/required-disclosures-inc-modern-slavery-act-statement/
+  registrations:
+    - authority: Financial Conduct Authority (FCA)
+      identifier: '302221'
+      scope: Connells Limited — authorised and regulated
+    - authority: Information Commissioner's Office (ICO)
+      identifier: ZA020020
+      scope: Data protection registration
+    - authority: The Property Ombudsman
+      identifier: null
+      scope: Consumer redress registrations for applicable businesses
+    - authority: Office of Fair Trading (legacy)
+      identifier: null
+      scope: Consumer Credit Act licences and Anti-Money Laundering registrations
+    - authority: Trading Standards — Central Bedfordshire Council
+      identifier: null
+      scope: Primary Authority partnership (Public Protection Trading Standards)
+    - authority: Companies House
+      identifier: '03187394'
+      scope: Registered in England and Wales
+    - authority: HMRC
+      identifier: 500 2481 05
+      scope: VAT registration
+  statements:
+    - name: Modern Slavery Act Statement
+      year: 2026
+    - name: Gender Pay Gap Report
+      year: 2025
+    - name: Section 172 Statement
+      year: 2021
+    - name: Supplier Code of Conduct
+      year: 2023
+  security_certifications_found: []
+  note: >-
+    No SOC 2, ISO 27001, ISO 27017/27018, PCI DSS, HIPAA, FedRAMP, CSA STAR or
+    FIPS 140 certification is claimed anywhere in the Connells Group estate, and
+    no trust centre exists (trust. and security. subdomains do not resolve;
+    probe-security-programs.py returned trust=none).

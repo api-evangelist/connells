@@ -23,7 +23,18 @@ description: >-
   and undocumented. No developer portal exists: developer., developers., api.
   and docs.connellsgroup.co.uk do not resolve, and /developers, /api, /docs,
   /openapi.json, /swagger.json, /api-docs and /.well-known/openid-configuration
-  return 404 on both connellsgroup.co.uk and connells.co.uk. The group's 88-URL
+  return 404 on both connellsgroup.co.uk and connells.co.uk. It publishes no
+  OpenAPI, no GraphQL, no AsyncAPI, no MCP server and no client SDK — the only
+  first-party package on any public registry is a dormant npm colour-token file
+  for its website. Probing on 2026-07-26 did, however, find a small live JSON
+  surface underneath the consumer site at https://www.connells.co.uk/api: six
+  anonymous read-only Next.js route handlers serving the branch finder, people
+  directory, testimonials wall and place autocomplete, plus a seventh
+  (/api/properties) that returns HTTP 500. These are undocumented internal
+  website routes, not a product — unversioned, unsupported, rate limited by
+  Cloudflare, capped at 12 records because no paging parameter works, and
+  carrying application errors inside HTTP 200 bodies. Only connells.co.uk
+  exposes them; the sibling brand sites redirect /api/* away. The group's 88-URL
   corporate sitemap contains no developer path — its one /developers/ page is
   addressed to property developers, not software developers. Integration is real
   but partner-only: Connells Survey & Valuation advertises delivering "totally
@@ -46,14 +57,22 @@ accessModel:
   trial: false
   try_now: false
   public: false
-  label: No published developer surface · lender-panel and commercial integration only
+  label: >-
+    No published developer surface · lender-panel and commercial integration
+    only · an undocumented anonymous read-only JSON surface exists at
+    www.connells.co.uk/api but is not offered, documented or supported
   confidence: high
   source:
   - probes
   - website
   generated: '2026-07-26'
   method: manual
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+  note: >-
+    public: false is deliberate. The endpoints found at www.connells.co.uk/api
+    are reachable without credentials but are undocumented internal website
+    routes with no terms, no versioning and no support — reachable is not the
+    same as offered, and Connells has published nothing inviting their use.
+image: https://www.connellsgroup.co.uk/Assets/images/favicons/apple-icon-180x180.png
 tags:
 - Real Estate
 - United Kingdom
@@ -70,8 +89,108 @@ tags:
 created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.19'
-apis: []
+apis:
+- name: Connells Website JSON API (undocumented)
+  description: >-
+    An undocumented, unauthenticated, read-only JSON surface served by the
+    Connells consumer website at https://www.connells.co.uk/api. It is NOT a
+    published Connells Group product — the group publishes no developer portal,
+    no documentation and no specification, and makes no commitment about these
+    routes. They are Next.js App Router route handlers backing the site's branch
+    finder, people directory, testimonials wall and place autocomplete, with
+    content sourced from the Homeflow estate-agency platform that powers the
+    Connells consumer estate. Six operations answered anonymous requests on
+    2026-07-26 — listBranches, getBranch, listStaff, listTestimonials,
+    listLocations and searchPlaces — while a seventh, /api/properties, returned
+    HTTP 500 on every probe, so no property listings are available. The surface
+    is unversioned, read-only (Allow: GET, HEAD, OPTIONS), rate limited by
+    Cloudflare with HTTP 429 and Retry-After but no forward RateLimit headers,
+    and hard-capped at 12 records per collection because no paging parameter is
+    honoured despite pagination metadata advertising 162 branches and 841 staff.
+    Application errors ride inside HTTP 200 bodies rather than in status codes.
+    Only www.connells.co.uk exposes these handlers; the sibling Connells Group
+    brand sites redirect /api/* away. The OpenAPI in this repo was derived by
+    API Evangelist from live response captures, not published by the provider.
+  humanURL: https://www.connells.co.uk/
+  baseURL: https://www.connells.co.uk/api
+  tags:
+  - Real Estate
+  - Estate Agency
+  - Branch Locator
+  - United Kingdom
+  - Undocumented
+  properties:
+  - type: OpenAPI
+    name: Connells Website JSON API (API Evangelist derived)
+    url: openapi/connells-website-openapi.yml
+  - type: Examples
+    name: Captured live response examples
+    url: examples/_index.yml
+  - type: Authentication
+    name: Authentication profile (none required)
+    url: authentication/connells-authentication.yml
+  - type: RateLimits
+    name: Observed rate limits
+    url: rate-limits/connells-rate-limits.yml
+  - type: ErrorCatalog
+    name: Observed error catalogue
+    url: errors/connells-problem-types.yml
+  - type: Conventions
+    name: API conventions
+    url: conventions/connells-conventions.yml
+  - type: DataModel
+    name: Derived data model
+    url: data-model/connells-data-model.yml
+  - type: Lifecycle
+    name: Lifecycle posture
+    url: lifecycle/connells-lifecycle.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/connells-agentic-access.yml
+- type: DomainSecurity
+  url: security/connells-domain-security.yml
+- type: OpenAPI
+  name: Connells Website JSON API (API Evangelist derived)
+  url: openapi/connells-website-openapi.yml
+- type: Examples
+  name: Captured live response examples
+  url: examples/_index.yml
+- type: Authentication
+  name: Authentication profile (none required)
+  url: authentication/connells-authentication.yml
+- type: RateLimits
+  name: Observed rate limits
+  url: rate-limits/connells-rate-limits.yml
+- type: ErrorCatalog
+  name: Observed error catalogue
+  url: errors/connells-problem-types.yml
+- type: Conventions
+  name: API conventions
+  url: conventions/connells-conventions.yml
+- type: DataModel
+  name: Derived data model
+  url: data-model/connells-data-model.yml
+- type: Lifecycle
+  name: Lifecycle posture
+  url: lifecycle/connells-lifecycle.yml
+- type: Conformance
+  name: Standards conformance and regulatory registrations
+  url: conformance/connells-conformance.yml
+- type: Compliance
+  name: Required disclosures — FCA, ICO, Property Ombudsman, Modern Slavery Act
+  url: https://www.connellsgroup.co.uk/required-disclosures-inc-modern-slavery-act-statement/
+- type: Packages
+  name: First-party packages
+  url: packages/connells-packages.yml
+- type: LLMsTxt
+  name: llms.txt
+  url: llms/connells-llms.txt
+- type: AgentSkill
+  name: Agent skills
+  url: skills/_index.yml
+- type: TermsOfService
+  name: Legal Notices — Terms and Conditions
+  url: https://www.connellsgroup.co.uk/legal-notices/
 - type: Website
   url: https://www.connellsgroup.co.uk/
 - type: Website
@@ -107,6 +226,8 @@ common:
   url: https://www.connellsgroup.co.uk/careers/work-with-us/
 - type: PrivacyPolicy
   url: https://www.connellsgroup.co.uk/privacy-policy/
+- type: CookiePolicy
+  url: https://www.connellsgroup.co.uk/cookie-policy/
 - type: LinkedIn
   url: https://www.linkedin.com/company/connells-group
 - type: ParentCompany

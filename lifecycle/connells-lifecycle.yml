@@ -1,0 +1,68 @@
+generated: '2026-07-26'
+method: probed
+source: live probes of the Connells Group estate 2026-07-26
+note: >-
+  Recorded as an honest negative. Connells Group operates the endpoints in
+  openapi/connells-website-openapi.yml with no lifecycle machinery of any kind.
+  Every field below is null or false because the corresponding artifact was
+  searched for and does not exist — not because it was not looked for.
+versioning:
+  scheme: none
+  current: null
+  docs: null
+  detail: >-
+    Base path is a bare /api with no version segment, no version header, no
+    date-based version and no published policy. Any change ships silently.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  detail: >-
+    No RFC 8594 Sunset header and no Deprecation header on any response. No
+    deprecation policy page exists. No StatusPage or Deprecation pointer is
+    claimed for this provider.
+sla:
+  url: null
+  uptime_target: null
+  detail: No service-level agreement, uptime target or support commitment is published for these endpoints.
+status_page:
+  url: null
+  detail: >-
+    status.connells.co.uk and status.connellsgroup.co.uk do not resolve (curl
+    exit 6). No third-party status page (Statuspage, Instatus, Better Stack) was
+    found for any Connells Group brand.
+changelog:
+  url: null
+  detail: >-
+    No API changelog or release notes. The corporate news feed at
+    https://www.connellsgroup.co.uk/news/ is business news, not API change
+    communication, and is already catalogued as type Blog.
+roadmap:
+  url: null
+support:
+  developer_channel: null
+  detail: >-
+    No developer support channel, forum, community or contact address for the
+    endpoints. The only contact routes published are consumer and corporate
+    (https://www.connellsgroup.co.uk/contact-us/).
+deprecated_operations: []
+stability:
+  assessment: unstable
+  evidence:
+    - >-
+      GET /api/properties returned HTTP 500 with an empty body on every probe on
+      2026-07-26 — a route handler in the production estate that is simply
+      broken, with no status page to report it on.
+    - >-
+      The list endpoints advertise pagination they do not implement (162
+      branches across 14 pages, but no paging parameter is honoured), which
+      suggests the handlers were built for a single consumer view rather than as
+      a maintained interface.
+    - >-
+      Response envelopes are inconsistent across six operations (three different
+      shapes), which is characteristic of endpoints that have never been
+      governed as a contract.
+  conclusion: >-
+    These endpoints should be treated as internal implementation detail of the
+    www.connells.co.uk website that happens to be reachable, not as a stable
+    integration surface. Any consumer builds against them at its own risk.

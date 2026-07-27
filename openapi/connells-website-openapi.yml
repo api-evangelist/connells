@@ -1,0 +1,479 @@
+openapi: 3.1.0
+info:
+  title: Connells Website JSON API (undocumented)
+  version: '2026-07-26'
+  summary: Read-only JSON endpoints served by the Connells estate agency website.
+  description: >-
+    This is NOT a published Connells Group product. Connells Group publishes no
+    developer portal, no documentation and no specification of any kind. This
+    document was DERIVED by API Evangelist purely from live, anonymous,
+    unauthenticated HTTP probes of https://www.connells.co.uk/api on 2026-07-26,
+    and every schema below is a faithful transcription of an observed response
+    body — nothing was invented, and no field appears here that was not returned
+    by the live service.
+
+
+    The endpoints are Next.js App Router route handlers backing the
+    www.connells.co.uk consumer site (branch finder, people directory,
+    testimonials wall and location autocomplete). Content is sourced from the
+    Homeflow estate-agency platform that powers the Connells consumer estate
+    (asset URLs resolve to *.homeflow-assets.co.uk). They are unversioned,
+    undocumented, carry no service-level commitment, are rate limited by
+    Cloudflare (HTTP 429 with Retry-After) and may change or disappear without
+    notice. Treat them as an observation of the estate, not as a contract.
+
+
+    The sibling Connells Group brand sites (Hamptons, Sequence, Bairstow Eves,
+    Fox & Sons, John D Wood, Blundells, Barnard Marcus, William H Brown) run the
+    Homeflow Rails application directly and 302-redirect /api/* to their
+    homepage; Countrywide 301-redirects; Gascoigne Halman 404s. Only
+    www.connells.co.uk exposes these handlers.
+  x-provenance: api-evangelist-derived-from-live-probes
+  x-published-by-provider: false
+  x-probe-date: '2026-07-26'
+servers:
+  - url: https://www.connells.co.uk/api
+    description: Production (undocumented, unversioned, no SLA)
+tags:
+  - name: Branches
+    description: Connells branch (office) directory.
+  - name: People
+    description: Connells staff directory.
+  - name: Testimonials
+    description: Published customer testimonials.
+  - name: Locations
+    description: Geographic locations and place-name lookup.
+paths:
+  /branches:
+    get:
+      operationId: listBranches
+      summary: List Connells branches
+      description: >-
+        Returns the first page of the Connells branch directory. Observed
+        2026-07-26 as 162 branches across 14 pages of 12. No query parameter was
+        honoured — page, pageSize, per_page, limit, lat, lng, search, q, query,
+        slug, service, distance and isLettingsEnabled were each probed and all
+        returned page 1 unchanged. OPTIONS reports "Allow: GET, HEAD, OPTIONS".
+      tags: [Branches]
+      security: []
+      responses:
+        '200':
+          description: A page of branches.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BranchListEnvelope'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /branches/{branchId}:
+    get:
+      operationId: getBranch
+      summary: Get one branch by numeric id
+      description: >-
+        Returns a single branch by its numeric id (observed: 8020 = Abingdon).
+        The path segment must be the numeric id; passing the branch slug
+        ("abingdon") returns HTTP 200 with a null result rather than a 404.
+      tags: [Branches]
+      security: []
+      parameters:
+        - name: branchId
+          in: path
+          required: true
+          description: Numeric branch identifier, as returned by listBranches.
+          schema:
+            type: integer
+          example: 8020
+      responses:
+        '200':
+          description: The branch, or a null result when no branch matches.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BranchEnvelope'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /staff:
+    get:
+      operationId: listStaff
+      summary: List Connells staff
+      description: >-
+        Returns the first page of the Connells people directory. Observed
+        2026-07-26 as 841 staff across 71 pages of 12. Same envelope and same
+        non-honoured pagination behaviour as listBranches.
+      tags: [People]
+      security: []
+      responses:
+        '200':
+          description: A page of staff members.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffListEnvelope'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /testimonials:
+    get:
+      operationId: listTestimonials
+      summary: List published customer testimonials
+      description: >-
+        Returns 12 published customer testimonials. Note the envelope differs
+        from the others: `pagination` is null and the error key is singular
+        (`error`, not `errors`).
+      tags: [Testimonials]
+      security: []
+      responses:
+        '200':
+          description: Testimonials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestimonialListEnvelope'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /locations:
+    get:
+      operationId: listLocations
+      summary: List locations
+      description: >-
+        Returns a bare JSON array (no envelope) of 12 location records. Ids are
+        24-character hexadecimal strings (MongoDB ObjectId form), consistent
+        with the Homeflow platform behind the site. Several records were
+        observed with empty `name` and `urlLabel` values.
+      tags: [Locations]
+      security: []
+      responses:
+        '200':
+          description: An array of locations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /places:
+    get:
+      operationId: searchPlaces
+      summary: Look up places by name
+      description: >-
+        Place-name autocomplete. Requires the `name` query parameter; without it
+        the service returns HTTP 200 with an empty result set and the error
+        "Name required for places search". Results are returned as positional
+        arrays of three strings — [display label, place id, place slug] — rather
+        than as objects.
+      tags: [Locations]
+      security: []
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: Free-text place name to search for.
+          schema:
+            type: string
+          example: bedford
+      responses:
+        '200':
+          description: Matching places, or an error entry when `name` is absent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaceSearchEnvelope'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+  /properties:
+    get:
+      operationId: listProperties
+      summary: Property listings (route present, non-functional)
+      description: >-
+        This route handler exists but returned HTTP 500 with an empty body on
+        every probe on 2026-07-26 — bare, and with location, search, type and
+        page query parameters. It is documented here only to record that the
+        route is present and failing; no successful response has ever been
+        observed, so no 200 schema is asserted. Property listings on
+        www.connells.co.uk are server-rendered from the Homeflow platform, not
+        fetched from this endpoint by the browser.
+      tags: [Branches]
+      security: []
+      responses:
+        '500':
+          description: Observed on every probe. Empty body.
+        '429':
+          $ref: '#/components/responses/RateLimited'
+components:
+  responses:
+    RateLimited:
+      description: >-
+        Rate limited at the Cloudflare edge. Body is the plain-text string "Too
+        many requests" and a Retry-After header is supplied (34 seconds
+        observed).
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema:
+            type: integer
+          example: 34
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Too many requests
+  schemas:
+    Pagination:
+      type: object
+      description: Pagination envelope returned by the list endpoints.
+      properties:
+        totalCount:
+          type: integer
+          example: 162
+        currentPage:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 12
+        pageCount:
+          type: integer
+          example: 14
+        hasPrevPage:
+          type: boolean
+        hasNextPage:
+          type: boolean
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Name required for places search
+    BranchListEnvelope:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        errors:
+          type: [array, 'null']
+          items:
+            $ref: '#/components/schemas/ApiError'
+    BranchEnvelope:
+      type: object
+      properties:
+        result:
+          oneOf:
+            - $ref: '#/components/schemas/Branch'
+            - type: 'null'
+        errors:
+          type: [array, 'null']
+          items:
+            $ref: '#/components/schemas/ApiError'
+    StaffListEnvelope:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffMember'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        errors:
+          type: [array, 'null']
+          items:
+            $ref: '#/components/schemas/ApiError'
+    TestimonialListEnvelope:
+      type: object
+      description: >-
+        Note the singular `error` key and the null `pagination` — this envelope
+        is not consistent with the branch and staff envelopes.
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Testimonial'
+        pagination:
+          type: 'null'
+        error:
+          type: [object, 'null']
+    PlaceSearchEnvelope:
+      type: object
+      properties:
+        results:
+          type: array
+          description: Each match is a positional 3-string array.
+          items:
+            $ref: '#/components/schemas/PlaceMatch'
+        errors:
+          type: [array, 'null']
+          items:
+            $ref: '#/components/schemas/ApiError'
+    PlaceMatch:
+      type: array
+      description: '[display label, place id, place slug]'
+      minItems: 3
+      maxItems: 3
+      items:
+        type: string
+      example:
+        - Bedford, Bedfordshire
+        - 51e7c40773dadaf60feea517
+        - bedford
+    Branch:
+      type: object
+      description: A Connells branch (high-street office).
+      properties:
+        id:
+          type: integer
+          example: 8020
+        slug:
+          type: string
+          example: abingdon
+        name:
+          type: string
+          example: Abingdon
+        mainPhoto:
+          type: [string, 'null']
+          format: uri
+          description: Branch photograph, served from the Homeflow asset CDN.
+        email:
+          type: [string, 'null']
+          format: email
+        description:
+          type: [string, 'null']
+          description: Long-form marketing copy for the branch.
+        lat:
+          type: [number, 'null']
+          example: 51.6701702207
+        lng:
+          type: [number, 'null']
+          example: -1.2827574378
+        displayAddress:
+          type: [string, 'null']
+          description: Newline-delimited postal address.
+        contactTelephone:
+          type: [string, 'null']
+        urlLabel:
+          type: [string, 'null']
+        salesTelephone:
+          type: [string, 'null']
+        lettingsTelephone:
+          type: [string, 'null']
+        branchManager:
+          oneOf:
+            - $ref: '#/components/schemas/StaffMember'
+            - type: 'null'
+        services:
+          type: array
+          items:
+            $ref: '#/components/schemas/BranchService'
+        agencyId:
+          type: [integer, 'null']
+          example: 909
+        isSalesEnabled:
+          type: [boolean, 'null']
+        isLettingsEnabled:
+          type: [boolean, 'null']
+        departments:
+          type: array
+          description: Observed empty on every record sampled.
+          items:
+            type: object
+        distance:
+          type: [number, 'null']
+          description: Observed null; presumably populated by a proximity search.
+        branchUrl:
+          type: [string, 'null']
+          example: /estate-agents/abingdon
+    BranchService:
+      type: object
+      description: A service line offered at a branch.
+      properties:
+        service:
+          type: string
+          example: Lettings
+        phone_number:
+          type: [string, 'null']
+        fax_number:
+          type: [string, 'null']
+        email_address:
+          type: [string, 'null']
+        enabled:
+          type: [boolean, 'null']
+    StaffMember:
+      type: object
+      description: >-
+        A Connells colleague. The same shape is embedded as a branch's
+        `branchManager`.
+      properties:
+        id:
+          type: integer
+          example: 23232373
+        slug:
+          type: string
+          example: paul-barron
+        name:
+          type: string
+          example: Paul Barron
+        jobTitle:
+          type: [string, 'null']
+          example: Instructions Manager
+        avatar:
+          type: [string, 'null']
+          format: uri
+        mobileNumber:
+          type: [string, 'null']
+          description: Observed null on every record sampled.
+        email:
+          type: [string, 'null']
+          description: Observed null on every record sampled.
+        urlLabel:
+          type: [string, 'null']
+        team:
+          type: [string, 'null']
+        shortBio:
+          type: [string, 'null']
+        longBio:
+          type: [string, 'null']
+        branchId:
+          type: [integer, 'null']
+          description: Foreign key to Branch.id.
+          example: 8020
+    Testimonial:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 417891
+        name:
+          type: string
+          description: Partially redacted customer name as published on the site.
+        content:
+          type: string
+        displayDate:
+          type: string
+          description: Human-formatted date, DD/MM/YYYY.
+          example: 24/07/2026
+        contactCounty:
+          type: [string, 'null']
+          example: Cambridgeshire
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-07-24T13:29:00.000Z'
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 24-character hexadecimal identifier (MongoDB ObjectId form).
+          example: 590a049361034ea359e75f51
+        name:
+          type: string
+          description: Observed empty on several records.
+        countyName:
+          type: string
+          example: West Yorkshire
+        urlLabel:
+          type: string
+          description: Observed empty on several records.

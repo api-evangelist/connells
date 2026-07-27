@@ -26,9 +26,27 @@ Connells Limited, trading as Connells Group, is the United Kingdom's largest est
 
 ## APIs
 
-None. Connells Group publishes no documented public API.
+Connells Group publishes no documented public API — but it does leak one.
 
-Every conventional developer entry point was probed on 2026-07-26 and every one failed. `developer.`, `developers.`, `api.` and `docs.connellsgroup.co.uk` do not resolve; `/developers`, `/api`, `/docs`, `/openapi.json`, `/swagger.json`, `/api-docs`, `/$metadata` and `/.well-known/openid-configuration` return 404 on both connellsgroup.co.uk and connells.co.uk. The group's 88-URL corporate sitemap contains no developer path — its one `/developers/` page addresses property developers, not software developers. No OpenAPI, Swagger, OData `$metadata`, AsyncAPI, GraphQL schema or Postman collection was found, so there is no `openapi/` directory in this repo and `apis[]` in `apis.yml` is empty.
+Every conventional developer entry point was probed on 2026-07-26 and every one failed. `developer.`, `developers.`, `api.` and `docs.connellsgroup.co.uk` do not resolve; `/developers`, `/api`, `/docs`, `/openapi.json`, `/swagger.json`, `/api-docs`, `/$metadata` and `/.well-known/openid-configuration` return 404 on both connellsgroup.co.uk and connells.co.uk. The group's 88-URL corporate sitemap contains no developer path — its one `/developers/` page addresses property developers, not software developers. No OpenAPI, Swagger, OData `$metadata`, AsyncAPI, GraphQL schema, MCP server or Postman collection is published anywhere.
+
+A second enrichment round went further and enumerated the Next.js App Router route handlers behind `www.connells.co.uk`, and found **six live, anonymous, read-only JSON endpoints** at `https://www.connells.co.uk/api` — plus a seventh that is simply broken:
+
+| Operation | Path | Status |
+|---|---|---|
+| `listBranches` | `GET /api/branches` | 200 — 162 branches advertised, 12 returned |
+| `getBranch` | `GET /api/branches/{id}` | 200 — numeric id only; a slug returns `result: null` |
+| `listStaff` | `GET /api/staff` | 200 — 841 staff advertised, 12 returned |
+| `listTestimonials` | `GET /api/testimonials` | 200 — inconsistent envelope |
+| `listLocations` | `GET /api/locations` | 200 — bare array, no envelope |
+| `searchPlaces` | `GET /api/places?name=` | 200 — `name` required |
+| `listProperties` | `GET /api/properties` | **500 on every probe** |
+
+This is not a product and should not be described as one. It is unversioned, undocumented and unsupported, with no terms and no status page. Authentication is absent entirely; the only control is a Cloudflare rate limit that answers HTTP 429 with `Retry-After` and no forward `RateLimit-*` headers. Application errors ride inside HTTP 200 bodies rather than status codes. Pagination metadata advertises 162 branches across 14 pages, but no paging parameter is honoured — pages 2..n are unreachable, so the surface cannot deliver the collection it describes. Only `connells.co.uk` exposes these handlers; the sibling brand sites run the Homeflow Rails application and redirect `/api/*` away.
+
+The `openapi/` document in this repo was **derived by API Evangelist from captured live responses**, not published by Connells. Every schema is a transcription of a body the service actually returned, and the captures are kept alongside it in `examples/`.
+
+There is no property listings data on this surface. The group's core asset — ~115,000 sales a year of stock — reaches consumers through Rightmove, Zoopla and OnTheMarket, server-rendered from the Homeflow platform.
 
 ### RESO posture
 
@@ -41,6 +59,31 @@ No RESO reference exists anywhere in the Connells Group estate. There is no RESO
 ### Open data
 
 None from Connells. The genuinely open UK property layer belongs to the public sector — HM Land Registry Price Paid Data and ownership data under the Open Government Licence, and Ordnance Survey's addressing and mapping open products — not to the brokerage.
+
+## Artifacts
+
+| Artifact | File | Method |
+|---|---|---|
+| OpenAPI 3.1 (derived from live captures) | `openapi/connells-website-openapi.yml` | derived |
+| Captured live responses | `examples/` | searched |
+| Authentication profile (none required) | `authentication/connells-authentication.yml` | probed |
+| Rate limits (Cloudflare 429 / Retry-After) | `rate-limits/connells-rate-limits.yml` | probed |
+| Error catalogue | `errors/connells-problem-types.yml` | derived |
+| API conventions | `conventions/connells-conventions.yml` | derived |
+| Data model | `data-model/connells-data-model.yml` | derived |
+| Lifecycle (honest negative) | `lifecycle/connells-lifecycle.yml` | probed |
+| Conformance + regulatory registrations | `conformance/connells-conformance.yml` | searched |
+| Packages | `packages/connells-packages.yml` | searched |
+| Agent skills | `skills/` | generated |
+| Agentic access contracts | `agentic-access/connells-agentic-access.yml` | generated |
+| Candidate MCP tools (no server exists) | `mcp/connells-mcp.yml` | derived |
+| llms.txt | `llms/connells-llms.txt` | generated |
+| Domain security probe | `security/connells-domain-security.yml` | probed |
+| Well-known probe (all 404) | `well-known/connells-well-known.yml` | probed |
+
+### What is deliberately absent
+
+No `SDKs`, `MCPServer`, `StatusPage`, `Deprecation`, `Security`, `WellKnown`, `SecurityTxt`, `Webhooks`, `AsyncAPI`, `Idempotency`, `Documentation`, `DeveloperPortal`, `APIReference`, `GettingStarted`, `SignUp`, `Postman`, `GitHubOrganization`, `CLI`, `Sandbox` or `ChangeLog` pointer is claimed, because Connells publishes none of those things. The only first-party package on any public registry is `@connells-group/design-tokens__con` — a dormant npm colour-token file for the website, verified first-party by its `@connellsgroup.co.uk` maintainer address, and not an API client.
 
 ## Properties
 

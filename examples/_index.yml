@@ -1,0 +1,38 @@
+generated: '2026-07-26'
+method: searched
+source: live anonymous HTTP captures of https://www.connells.co.uk/api on 2026-07-26
+note: >-
+  Real response bodies captured verbatim from the live service, then truncated
+  to the first few array members so the files stay readable. No values were
+  edited or invented. These are the evidence behind
+  openapi/connells-website-openapi.yml.
+examples:
+  - file: connells-branches-response.json
+    operation: listBranches
+    request: GET https://www.connells.co.uk/api/branches
+    status: 200
+    note: Full response carried 12 of 162 branches; trimmed to 2 here.
+  - file: connells-branch-by-id-response.json
+    operation: getBranch
+    request: GET https://www.connells.co.uk/api/branches/8020
+    status: 200
+  - file: connells-staff-response.json
+    operation: listStaff
+    request: GET https://www.connells.co.uk/api/staff
+    status: 200
+    note: Full response carried 12 of 841 staff; trimmed to 3 here.
+  - file: connells-testimonials-response.json
+    operation: listTestimonials
+    request: GET https://www.connells.co.uk/api/testimonials
+    status: 200
+    note: Full response carried 12 testimonials; trimmed to 3 here.
+  - file: connells-locations-response.json
+    operation: listLocations
+    request: GET https://www.connells.co.uk/api/locations
+    status: 200
+    note: Bare array, no envelope. Trimmed to 6 of 12.
+  - file: connells-places-search-response.json
+    operation: searchPlaces
+    request: GET https://www.connells.co.uk/api/places?name=bedford
+    status: 200
+    note: Trimmed to 4 of 8 matches. Matches are positional 3-string arrays.

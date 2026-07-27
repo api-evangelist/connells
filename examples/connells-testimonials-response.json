@@ -1,0 +1,30 @@
+{
+  "results": [
+    {
+      "id": 417891,
+      "name": "Ms V.L. Hall (V)",
+      "content": "Fantastic service from start to finish when selling a property, was kept up to date throughout the entire process. Would highly recommend.",
+      "displayDate": "24/07/2026",
+      "contactCounty": "Cambridgeshire",
+      "createdAt": "2026-07-24T13:29:00.000Z"
+    },
+    {
+      "id": 417898,
+      "name": "Ms A.S.L. Clark-Webber (V)",
+      "content": "I had a great experience with Connells, they managed to achieve an over the asking price offer on my property I sold through them & Jason especially was a huge help to me throughout the process, particularly towards the end when it came down to chasing buyers solicitors etc, he was an absolute star as were the rest of the team. Thank you to everyone who helped me throughout the process, it's much appreciated!",
+      "displayDate": "25/07/2026",
+      "contactCounty": "Avon",
+      "createdAt": "2026-07-25T09:49:17.000Z"
+    },
+    {
+      "id": 417875,
+      "name": "Miss S. Beard (V)",
+      "content": "As a first time seller in the UK, Oliver Spackman at Connells made the whole process seamless. His communication was brilliant, he kept me informed at each step of the process and frequently followed up to help move the process forward. Highly recommend",
+      "displayDate": "23/07/2026",
+      "contactCounty": "Kent",
+      "createdAt": "2026-07-23T10:20:30.000Z"
+    }
+  ],
+  "pagination": null,
+  "error": null
+}

@@ -1,0 +1,18 @@
+generated: '2026-07-26'
+method: generated
+source: openapi/connells-website-openapi.yml + conventions/ + errors/ + rate-limits/
+note: >-
+  Connells Group publishes no AGENTS.md, no skill files and no agent guidance —
+  the estate was searched and none exists. These skills are authored by API
+  Evangelist and grounded in operationIds verified against the derived OpenAPI in
+  this repo. Every step also carries the honest limits of the surface (12-record
+  ceiling, no paging, in-band errors, unannounced rate limiting, no writes).
+skills:
+  - file: connells-branch-locator.md
+    name: Locate a Connells branch and its people
+    api: openapi/connells-website-openapi.yml
+    operations: [searchPlaces, listBranches, getBranch, listStaff]
+  - file: connells-market-presence.md
+    name: Assemble Connells local market presence
+    api: openapi/connells-website-openapi.yml
+    operations: [listLocations, searchPlaces, listBranches, listTestimonials]

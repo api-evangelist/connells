@@ -1,0 +1,61 @@
+generated: '2026-07-26'
+method: searched
+source: npm registry, PyPI, NuGet searches 2026-07-26
+sdk_count: 0
+note: >-
+  Connells Group publishes NO API client library in any language — there is no
+  API to write one against. Exactly one first-party package exists on any public
+  registry, and it is a website design-token package, not an SDK. No SDKs
+  pointer is claimed in apis.yml, because claiming one would misrepresent a
+  colour-palette package as a client library.
+packages:
+  - language: css
+    registry: npm
+    name: '@connells-group/design-tokens__con'
+    url: https://www.npmjs.com/package/@connells-group/design-tokens__con
+    install: npm install @connells-group/design-tokens__con
+    official: true
+    kind: design-tokens
+    api_client: false
+    version: 1.0.9
+    versions: [1.0.1, 1.0.2, 1.0.3, 1.0.4, 1.0.5, 1.0.6, 1.0.7, 1.0.8, 1.0.9]
+    first_published: '2019-04-30'
+    last_modified: '2022-04-05'
+    license: ISC
+    repository: null
+    homepage: null
+    description: >-
+      Brand, helper and neutral colour tokens for the Connells brand, shipped as
+      paired JSON and SCSS files (brand-colours, helper-colours,
+      neutral-colours). No JavaScript, no build output, no dependencies — the
+      published tarball contains only package.json and those six token files.
+    first_party_evidence:
+      - >-
+        Maintained by Ebrahim.Saleh@connellsgroup.co.uk — a corporate
+        connellsgroup.co.uk address — alongside a connellswebdevelopment
+        account. This is what establishes first-party status; the package
+        carries no description, author, homepage or repository field.
+    status: dormant
+    status_note: >-
+      Last published 2022-04-05, four years before this probe. The `__con`
+      suffix implies a per-brand family (Connells being one of 80+ group
+      brands), but no sibling package exists — the scope contains this package
+      alone.
+registries_probed:
+  - {registry: npm, query: 'connells', result: one package (above)}
+  - {registry: npm, query: 'scope @connells / @connellsgroup / @countrywide / @hamptons / @sequencehome', result: no packages}
+  - {registry: pypi, query: connells, result: 404}
+  - {registry: nuget, query: connells, result: 0 hits}
+  - {registry: maven-central, query: connells, result: no first-party artifact}
+  - {registry: rubygems, query: connells, result: no first-party artifact}
+  - {registry: packagist, query: connells, result: no first-party artifact}
+  - {registry: crates.io, query: connells, result: no first-party artifact}
+  - {registry: pkg.go.dev, query: connells, result: no first-party artifact}
+github:
+  organization: null
+  note: >-
+    github.com/connells is an unrelated individual (Connor Holmstead).
+    github.com/ConnellsGroup exists but is an empty personal-type account
+    created 2025-02-25 with zero public repositories, no name, no bio, no
+    company field and no verified domain — insufficient evidence to treat as a
+    first-party organisation, so no GitHubOrganization pointer is claimed.
