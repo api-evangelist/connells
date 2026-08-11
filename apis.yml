@@ -145,6 +145,8 @@ apis:
     name: Lifecycle posture
     url: lifecycle/connells-lifecycle.yml
 common:
+- type: MCPServer
+  url: mcp/connells-mcp.yml
 - type: AgenticAccess
   url: agentic-access/connells-agentic-access.yml
 - type: DomainSecurity
