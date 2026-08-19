@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Connells Website JSON API (undocumented)",
+    "version": "2026-07-26"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Branches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Connells branches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.connells.co.uk/api/branches"
+          },
+          "docs": "Returns the first page of the Connells branch directory. Observed 2026-07-26 as 162 branches across 14 pages of 12. No query parameter was honoured — page, pageSize, per_page, limit, lat, lng, search, q, query, slug, service, distance and isLettingsEnabled were each probed and all returned page 1 unchanged. OPTIONS reports \"Allow: GET, HEAD, OPTIONS\"."
+        },
+        {
+          "info": {
+            "name": "Get one branch by numeric id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.connells.co.uk/api/branches/:branchId",
+            "params": [
+              {
+                "name": "branchId",
+                "value": "8020",
+                "type": "path",
+                "description": "Numeric branch identifier, as returned by listBranches."
+              }
+            ]
+          },
+          "docs": "Returns a single branch by its numeric id (observed: 8020 = Abingdon). The path segment must be the numeric id; passing the branch slug (\"abingdon\") returns HTTP 200 with a null result rather than a 404."
+        },
+        {
+          "info": {
+            "name": "Property listings (route present, non-functional)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.connells.co.uk/api/properties"
+          },
+          "docs": "This route handler exists but returned HTTP 500 with an empty body on every probe on 2026-07-26 — bare, and with location, search, type and page query parameters. It is documented here only to record that the route is present and failing; no successful response has ever been observed, so no 200 schema is asserted. Property listings on www.connells.co.uk are server-rendered from the Homeflow platform, not fetched from this endpoint by the browser."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "People",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Connells staff",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.connells.co.uk/api/staff"
+          },
+          "docs": "Returns the first page of the Connells people directory. Observed 2026-07-26 as 841 staff across 71 pages of 12. Same envelope and same non-honoured pagination behaviour as listBranches."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Testimonials",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List published customer testimonials",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.connells.co.uk/api/testimonials"
+          },
+          "docs": "Returns 12 published customer testimonials. Note the envelope differs from the others: `pagination` is null and the error key is singular (`error`, not `errors`)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.connells.co.uk/api/locations"
+          },
+          "docs": "Returns a bare JSON array (no envelope) of 12 location records. Ids are 24-character hexadecimal strings (MongoDB ObjectId form), consistent with the Homeflow platform behind the site. Several records were observed with empty `name` and `urlLabel` values."
+        },
+        {
+          "info": {
+            "name": "Look up places by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.connells.co.uk/api/places",
+            "params": [
+              {
+                "name": "name",
+                "value": "bedford",
+                "type": "query",
+                "description": "Free-text place name to search for."
+              }
+            ]
+          },
+          "docs": "Place-name autocomplete. Requires the `name` query parameter; without it the service returns HTTP 200 with an empty result set and the error \"Name required for places search\". Results are returned as positional arrays of three strings — [display label, place id, place slug] — rather than as objects."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

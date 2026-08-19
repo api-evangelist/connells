@@ -1,0 +1,880 @@
+{
+  "item": [
+    {
+      "id": "d603eb7b-9b72-49d6-8435-704e897ca176",
+      "name": "Branches",
+      "description": {
+        "content": "Connells branch (office) directory.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d04fa981-ccac-4971-abe3-cf2727ebe3d9",
+          "name": "List Connells branches",
+          "request": {
+            "name": "List Connells branches",
+            "description": {
+              "content": "Returns the first page of the Connells branch directory. Observed 2026-07-26 as 162 branches across 14 pages of 12. No query parameter was honoured — page, pageSize, per_page, limit, lat, lng, search, q, query, slug, service, distance and isLettingsEnabled were each probed and all returned page 1 unchanged. OPTIONS reports \"Allow: GET, HEAD, OPTIONS\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "branches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5a77d56-b8c5-4cbd-b37a-05e3e6526e2d",
+              "name": "A page of branches.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": 8020,\n      \"slug\": \"abingdon\",\n      \"name\": \"Abingdon\",\n      \"mainPhoto\": \"http://z.qiA6Eacf6Sp9bD+b6KSmFGn6b\",\n      \"email\": \"uMBW3S9hmGRAN@pQtGJcmpYMqxUYAuRLBzTwrwRuKGXxjC.xo\",\n      \"description\": \"string\",\n      \"lat\": 51.6701702207,\n      \"lng\": -1.2827574378,\n      \"displayAddress\": \"string\",\n      \"contactTelephone\": \"string\",\n      \"urlLabel\": \"string\",\n      \"salesTelephone\": \"string\",\n      \"lettingsTelephone\": \"string\",\n      \"branchManager\": {\n        \"id\": 23232373,\n        \"slug\": \"paul-barron\",\n        \"name\": \"Paul Barron\",\n        \"jobTitle\": \"Instructions Manager\",\n        \"avatar\": \"https://CA.kxEq1Q.S1N4Bdvr.ihAzBAQ9mtWULLHNdQPe5crkAWb3Wr1HXy\",\n        \"mobileNumber\": \"string\",\n        \"email\": \"string\",\n        \"urlLabel\": \"string\",\n        \"team\": \"string\",\n        \"shortBio\": \"string\",\n        \"longBio\": \"string\",\n        \"branchId\": 8020\n      },\n      \"services\": [\n        {\n          \"service\": \"Lettings\",\n          \"phone_number\": \"string\",\n          \"fax_number\": \"string\",\n          \"email_address\": \"string\",\n          \"enabled\": false\n        },\n        {\n          \"service\": \"Lettings\",\n          \"phone_number\": \"string\",\n          \"fax_number\": \"string\",\n          \"email_address\": \"string\",\n          \"enabled\": false\n        }\n      ],\n      \"agencyId\": 909,\n      \"isSalesEnabled\": false,\n      \"isLettingsEnabled\": false,\n      \"distance\": 636.2943189555925,\n      \"branchUrl\": \"/estate-agents/abingdon\"\n    },\n    {\n      \"id\": 8020,\n      \"slug\": \"abingdon\",\n      \"name\": \"Abingdon\",\n      \"mainPhoto\": \"https://wYKWf.csgaqDS.A6peNuT5ZC2k0\",\n      \"email\": \"zfdcKlF@xxQNoCSXkGukfHVeQINjpZzQJwDN.mty\",\n      \"description\": \"string\",\n      \"lat\": 51.6701702207,\n      \"lng\": -1.2827574378,\n      \"displayAddress\": \"string\",\n      \"contactTelephone\": \"string\",\n      \"urlLabel\": \"string\",\n      \"salesTelephone\": \"string\",\n      \"lettingsTelephone\": \"string\",\n      \"branchManager\": {\n        \"id\": 23232373,\n        \"slug\": \"paul-barron\",\n        \"name\": \"Paul Barron\",\n        \"jobTitle\": \"Instructions Manager\",\n        \"avatar\": \"https://oSkiwWFhEvfnEQP.djV8udt-xCDabozqgH4AvkC,MheXkf7XWZh8rN3,W3uAZ8pqVw+RSxCXSh\",\n        \"mobileNumber\": \"string\",\n        \"email\": \"string\",\n        \"urlLabel\": \"string\",\n        \"team\": \"string\",\n        \"shortBio\": \"string\",\n        \"longBio\": \"string\",\n        \"branchId\": 8020\n      },\n      \"services\": [\n        {\n          \"service\": \"Lettings\",\n          \"phone_number\": \"string\",\n          \"fax_number\": \"string\",\n          \"email_address\": \"string\",\n          \"enabled\": true\n        },\n        {\n          \"service\": \"Lettings\",\n          \"phone_number\": \"string\",\n          \"fax_number\": \"string\",\n          \"email_address\": \"string\",\n          \"enabled\": false\n        }\n      ],\n      \"agencyId\": 909,\n      \"isSalesEnabled\": true,\n      \"isLettingsEnabled\": true,\n      \"distance\": 1092.3346783064226,\n      \"branchUrl\": \"/estate-agents/abingdon\"\n    }\n  ],\n  \"pagination\": {\n    \"totalCount\": 162,\n    \"currentPage\": 1,\n    \"pageSize\": 12,\n    \"pageCount\": 14,\n    \"hasPrevPage\": true,\n    \"hasNextPage\": true\n  },\n  \"errors\": [\n    {\n      \"message\": \"Name required for places search\"\n    },\n    {\n      \"message\": \"Name required for places search\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57377927-41ab-45e9-9abf-3c0c0d0eaa40",
+              "name": "Rate limited at the Cloudflare edge. Body is the plain-text string \"Too many requests\" and a Retry-After header is supplied (34 seconds observed).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "branches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "34"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f03623ce-d6e9-474d-886a-5031f12bb518",
+          "name": "Get one branch by numeric id",
+          "request": {
+            "name": "Get one branch by numeric id",
+            "description": {
+              "content": "Returns a single branch by its numeric id (observed: 8020 = Abingdon). The path segment must be the numeric id; passing the branch slug (\"abingdon\") returns HTTP 200 with a null result rather than a 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "branches",
+                ":branchId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "branchId",
+                  "description": "(Required) Numeric branch identifier, as returned by listBranches."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d6530e47-26c3-437f-8d59-9da316b18777",
+              "name": "The branch, or a null result when no branch matches.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "branches",
+                    ":branchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "branchId",
+                      "description": "(Required) Numeric branch identifier, as returned by listBranches."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"id\": 8020,\n    \"slug\": \"abingdon\",\n    \"name\": \"Abingdon\",\n    \"mainPhoto\": \"http://S.zagzzNb-jxUHrcg06x4yRLS0nUk3nJyZ3lmTuTiChFRbNgDTBVNG5Us,S6cLzusiKEcp4x.dk\",\n    \"email\": \"YIQYxPEBU4@igZHuuESVdTgFnIsFFdRav.pshy\",\n    \"description\": \"string\",\n    \"lat\": 51.6701702207,\n    \"lng\": -1.2827574378,\n    \"displayAddress\": \"string\",\n    \"contactTelephone\": \"string\",\n    \"urlLabel\": \"string\",\n    \"salesTelephone\": \"string\",\n    \"lettingsTelephone\": \"string\",\n    \"branchManager\": {\n      \"id\": 23232373,\n      \"slug\": \"paul-barron\",\n      \"name\": \"Paul Barron\",\n      \"jobTitle\": \"Instructions Manager\",\n      \"avatar\": \"http://MTUnkgPBtcVLOLiTp.dfpMGOB.kZa4CoUg98n\",\n      \"mobileNumber\": \"string\",\n      \"email\": \"string\",\n      \"urlLabel\": \"string\",\n      \"team\": \"string\",\n      \"shortBio\": \"string\",\n      \"longBio\": \"string\",\n      \"branchId\": 8020\n    },\n    \"services\": [\n      {\n        \"service\": \"Lettings\",\n        \"phone_number\": \"string\",\n        \"fax_number\": \"string\",\n        \"email_address\": \"string\",\n        \"enabled\": false\n      },\n      {\n        \"service\": \"Lettings\",\n        \"phone_number\": \"string\",\n        \"fax_number\": \"string\",\n        \"email_address\": \"string\",\n        \"enabled\": false\n      }\n    ],\n    \"agencyId\": 909,\n    \"isSalesEnabled\": true,\n    \"isLettingsEnabled\": true,\n    \"distance\": 9820.746083519605,\n    \"branchUrl\": \"/estate-agents/abingdon\"\n  },\n  \"errors\": [\n    {\n      \"message\": \"Name required for places search\"\n    },\n    {\n      \"message\": \"Name required for places search\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "559e7472-b116-4991-9766-38bc5c1a12fa",
+              "name": "Rate limited at the Cloudflare edge. Body is the plain-text string \"Too many requests\" and a Retry-After header is supplied (34 seconds observed).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "branches",
+                    ":branchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "branchId",
+                      "description": "(Required) Numeric branch identifier, as returned by listBranches."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "34"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54716e90-4213-40ea-a437-dc749fe13f4e",
+          "name": "Property listings (route present, non-functional)",
+          "request": {
+            "name": "Property listings (route present, non-functional)",
+            "description": {
+              "content": "This route handler exists but returned HTTP 500 with an empty body on every probe on 2026-07-26 — bare, and with location, search, type and page query parameters. It is documented here only to record that the route is present and failing; no successful response has ever been observed, so no 200 schema is asserted. Property listings on www.connells.co.uk are server-rendered from the Homeflow platform, not fetched from this endpoint by the browser.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "properties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60ad081f-ba15-47a8-a8b7-618921136473",
+              "name": "Rate limited at the Cloudflare edge. Body is the plain-text string \"Too many requests\" and a Retry-After header is supplied (34 seconds observed).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "34"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "668987f8-dbe5-4c63-9300-3193f4700bc3",
+              "name": "Observed on every probe. Empty body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1b4e5465-664a-4796-898f-76fccbf09f64",
+      "name": "People",
+      "description": {
+        "content": "Connells staff directory.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f63c804b-75c1-4284-8c15-a49c71eaaa58",
+          "name": "List Connells staff",
+          "request": {
+            "name": "List Connells staff",
+            "description": {
+              "content": "Returns the first page of the Connells people directory. Observed 2026-07-26 as 841 staff across 71 pages of 12. Same envelope and same non-honoured pagination behaviour as listBranches.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "staff"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f99dfa19-0090-4c26-a211-17ed32cdf631",
+              "name": "A page of staff members.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": 23232373,\n      \"slug\": \"paul-barron\",\n      \"name\": \"Paul Barron\",\n      \"jobTitle\": \"Instructions Manager\",\n      \"avatar\": \"http://FRsmRIdsIrbTkKaplvN.hsJj3ILmpd7rjPa8+Rr+vL2yB6f\",\n      \"mobileNumber\": \"string\",\n      \"email\": \"string\",\n      \"urlLabel\": \"string\",\n      \"team\": \"string\",\n      \"shortBio\": \"string\",\n      \"longBio\": \"string\",\n      \"branchId\": 8020\n    },\n    {\n      \"id\": 23232373,\n      \"slug\": \"paul-barron\",\n      \"name\": \"Paul Barron\",\n      \"jobTitle\": \"Instructions Manager\",\n      \"avatar\": \"https://zMYlmCtWNxXoS.nrmkEd1B983akgbV.z6OYTW,r\",\n      \"mobileNumber\": \"string\",\n      \"email\": \"string\",\n      \"urlLabel\": \"string\",\n      \"team\": \"string\",\n      \"shortBio\": \"string\",\n      \"longBio\": \"string\",\n      \"branchId\": 8020\n    }\n  ],\n  \"pagination\": {\n    \"totalCount\": 162,\n    \"currentPage\": 1,\n    \"pageSize\": 12,\n    \"pageCount\": 14,\n    \"hasPrevPage\": false,\n    \"hasNextPage\": false\n  },\n  \"errors\": [\n    {\n      \"message\": \"Name required for places search\"\n    },\n    {\n      \"message\": \"Name required for places search\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25451b6d-3d54-4975-a902-a7ef9ee463fe",
+              "name": "Rate limited at the Cloudflare edge. Body is the plain-text string \"Too many requests\" and a Retry-After header is supplied (34 seconds observed).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "staff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "34"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "30fcec28-a16c-4bd9-bd5e-9ddeaa5189e8",
+      "name": "Testimonials",
+      "description": {
+        "content": "Published customer testimonials.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b1b1b214-288b-44e7-aad6-e6bc7ed6f90b",
+          "name": "List published customer testimonials",
+          "request": {
+            "name": "List published customer testimonials",
+            "description": {
+              "content": "Returns 12 published customer testimonials. Note the envelope differs from the others: `pagination` is null and the error key is singular (`error`, not `errors`).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "testimonials"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ac02b44-d8b7-49da-ae98-71ebb8c78df8",
+              "name": "Testimonials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "testimonials"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": 417891,\n      \"name\": \"string\",\n      \"content\": \"string\",\n      \"displayDate\": \"24/07/2026\",\n      \"contactCounty\": \"Cambridgeshire\",\n      \"createdAt\": \"2026-07-24T13:29:00.000Z\"\n    },\n    {\n      \"id\": 417891,\n      \"name\": \"string\",\n      \"content\": \"string\",\n      \"displayDate\": \"24/07/2026\",\n      \"contactCounty\": \"Cambridgeshire\",\n      \"createdAt\": \"2026-07-24T13:29:00.000Z\"\n    }\n  ],\n  \"pagination\": null,\n  \"error\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "189ff7b3-1b73-4c94-b4d7-0e3b616f6ac0",
+              "name": "Rate limited at the Cloudflare edge. Body is the plain-text string \"Too many requests\" and a Retry-After header is supplied (34 seconds observed).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "testimonials"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "34"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "443009bf-0e66-4376-8804-b65dcf343013",
+      "name": "Locations",
+      "description": {
+        "content": "Geographic locations and place-name lookup.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a987061f-79ea-4a44-830e-8a3a256be9e5",
+          "name": "List locations",
+          "request": {
+            "name": "List locations",
+            "description": {
+              "content": "Returns a bare JSON array (no envelope) of 12 location records. Ids are 24-character hexadecimal strings (MongoDB ObjectId form), consistent with the Homeflow platform behind the site. Several records were observed with empty `name` and `urlLabel` values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76c5b978-0135-48ee-8bcb-dc10170bf7b4",
+              "name": "An array of locations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"590a049361034ea359e75f51\",\n    \"name\": \"string\",\n    \"countyName\": \"West Yorkshire\",\n    \"urlLabel\": \"string\"\n  },\n  {\n    \"id\": \"590a049361034ea359e75f51\",\n    \"name\": \"string\",\n    \"countyName\": \"West Yorkshire\",\n    \"urlLabel\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4ca325f-6c19-431e-8e94-db7b7230338f",
+              "name": "Rate limited at the Cloudflare edge. Body is the plain-text string \"Too many requests\" and a Retry-After header is supplied (34 seconds observed).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "34"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b39f4d74-c551-4394-94dc-2bb17e183136",
+          "name": "Look up places by name",
+          "request": {
+            "name": "Look up places by name",
+            "description": {
+              "content": "Place-name autocomplete. Requires the `name` query parameter; without it the service returns HTTP 200 with an empty result set and the error \"Name required for places search\". Results are returned as positional arrays of three strings — [display label, place id, place slug] — rather than as objects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "places"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) Free-text place name to search for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72b157af-924e-4fae-9d11-25e6c48068eb",
+              "name": "Matching places, or an error entry when `name` is absent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "places"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "bedford"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    [\n      \"Bedford, Bedfordshire\",\n      \"51e7c40773dadaf60feea517\",\n      \"bedford\"\n    ],\n    [\n      \"Bedford, Bedfordshire\",\n      \"51e7c40773dadaf60feea517\",\n      \"bedford\"\n    ]\n  ],\n  \"errors\": [\n    {\n      \"message\": \"Name required for places search\"\n    },\n    {\n      \"message\": \"Name required for places search\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd3bc774-cf08-4ee1-88c3-8648184badf8",
+              "name": "Rate limited at the Cloudflare edge. Body is the plain-text string \"Too many requests\" and a Retry-After header is supplied (34 seconds observed).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "places"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "bedford"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Seconds to wait before retrying.",
+                  "key": "Retry-After",
+                  "value": "34"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.connells.co.uk/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c8be339a-0a96-4601-b8a7-8a3b8b307b9c",
+    "name": "Connells Website JSON API (undocumented)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is NOT a published Connells Group product. Connells Group publishes no developer portal, no documentation and no specification of any kind. This document was DERIVED by API Evangelist purely from live, anonymous, unauthenticated HTTP probes of https://www.connells.co.uk/api on 2026-07-26, and every schema below is a faithful transcription of an observed response body — nothing was invented, and no field appears here that was not returned by the live service.\n\nThe endpoints are Next.js App Router route handlers backing the www.connells.co.uk consumer site (branch finder, people directory, testimonials wall and location autocomplete). Content is sourced from the Homeflow estate-agency platform that powers the Connells consumer estate (asset URLs resolve to *.homeflow-assets.co.uk). They are unversioned, undocumented, carry no service-level commitment, are rate limited by Cloudflare (HTTP 429 with Retry-After) and may change or disappear without notice. Treat them as an observation of the estate, not as a contract.\n\nThe sibling Connells Group brand sites (Hamptons, Sequence, Bairstow Eves, Fox & Sons, John D Wood, Blundells, Barnard Marcus, William H Brown) run the Homeflow Rails application directly and 302-redirect /api/* to their homepage; Countrywide 301-redirects; Gascoigne Halman 404s. Only www.connells.co.uk exposes these handlers.",
+      "type": "text/plain"
+    }
+  }
+}
