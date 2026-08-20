@@ -74,6 +74,19 @@ accessModel:
     same as offered, and Connells has published nothing inviting their use.
 image: https://www.connellsgroup.co.uk/Assets/images/favicons/apple-icon-180x180.png
 tags:
+- Real-Estate
+- United Kingdom
+- Property Listings
+- Brokerage
+- Estate Agency
+- Rentals
+- Valuation
+- Conveyancing
+- Mortgage
+- Property Management
+- Auctions
+- PropTech
+tags_raw:
 - Real Estate
 - United Kingdom
 - Property Listings
@@ -114,6 +127,12 @@ apis:
   humanURL: https://www.connells.co.uk/
   baseURL: https://www.connells.co.uk/api
   tags:
+  - Real-Estate
+  - Estate Agency
+  - Branch Locator
+  - United Kingdom
+  - Undocumented
+  tags_raw:
   - Real Estate
   - Estate Agency
   - Branch Locator
