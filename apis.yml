@@ -103,65 +103,101 @@ created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.23'
 apis:
-- name: Connells Website JSON API (undocumented)
-  description: >-
-    An undocumented, unauthenticated, read-only JSON surface served by the
-    Connells consumer website at https://www.connells.co.uk/api. It is NOT a
-    published Connells Group product — the group publishes no developer portal,
-    no documentation and no specification, and makes no commitment about these
-    routes. They are Next.js App Router route handlers backing the site's branch
-    finder, people directory, testimonials wall and place autocomplete, with
-    content sourced from the Homeflow estate-agency platform that powers the
-    Connells consumer estate. Six operations answered anonymous requests on
-    2026-07-26 — listBranches, getBranch, listStaff, listTestimonials,
-    listLocations and searchPlaces — while a seventh, /api/properties, returned
-    HTTP 500 on every probe, so no property listings are available. The surface
-    is unversioned, read-only (Allow: GET, HEAD, OPTIONS), rate limited by
-    Cloudflare with HTTP 429 and Retry-After but no forward RateLimit headers,
-    and hard-capped at 12 records per collection because no paging parameter is
-    honoured despite pagination metadata advertising 162 branches and 841 staff.
-    Application errors ride inside HTTP 200 bodies rather than in status codes.
-    Only www.connells.co.uk exposes these handlers; the sibling Connells Group
-    brand sites redirect /api/* away. The OpenAPI in this repo was derived by
-    API Evangelist from live response captures, not published by the provider.
+- aid: connells:connells-branches-api
+  name: Connells Group Branches API
+  description: Connells branch (office) directory.
   humanURL: https://www.connells.co.uk/
   baseURL: https://www.connells.co.uk/api
   tags:
-  - Real-Estate
-  - Estate Agency
-  - Branch Locator
-  - United Kingdom
-  - Undocumented
-  tags_raw:
-  - Real Estate
-  - Estate Agency
-  - Branch Locator
-  - United Kingdom
-  - Undocumented
+  - Branches
   properties:
   - type: OpenAPI
-    name: Connells Website JSON API (API Evangelist derived)
-    url: openapi/connells-website-openapi.yml
+    url: openapi/connells-branches-api-openapi.yml
   - type: Examples
-    name: Captured live response examples
     url: examples/_index.yml
   - type: Authentication
-    name: Authentication profile (none required)
     url: authentication/connells-authentication.yml
   - type: RateLimits
-    name: Observed rate limits
     url: rate-limits/connells-rate-limits.yml
   - type: ErrorCatalog
-    name: Observed error catalogue
     url: errors/connells-problem-types.yml
   - type: Conventions
-    name: API conventions
     url: conventions/connells-conventions.yml
   - type: DataModel
-    name: Derived data model
     url: data-model/connells-data-model.yml
   - type: Lifecycle
-    name: Lifecycle posture
+    url: lifecycle/connells-lifecycle.yml
+- aid: connells:connells-locations-api
+  name: Connells Group Locations API
+  description: Geographic locations and place-name lookup.
+  humanURL: https://www.connells.co.uk/
+  baseURL: https://www.connells.co.uk/api
+  tags:
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/connells-locations-api-openapi.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Authentication
+    url: authentication/connells-authentication.yml
+  - type: RateLimits
+    url: rate-limits/connells-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/connells-problem-types.yml
+  - type: Conventions
+    url: conventions/connells-conventions.yml
+  - type: DataModel
+    url: data-model/connells-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/connells-lifecycle.yml
+- aid: connells:connells-people-api
+  name: Connells Group People API
+  description: Connells staff directory.
+  humanURL: https://www.connells.co.uk/
+  baseURL: https://www.connells.co.uk/api
+  tags:
+  - People
+  properties:
+  - type: OpenAPI
+    url: openapi/connells-people-api-openapi.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Authentication
+    url: authentication/connells-authentication.yml
+  - type: RateLimits
+    url: rate-limits/connells-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/connells-problem-types.yml
+  - type: Conventions
+    url: conventions/connells-conventions.yml
+  - type: DataModel
+    url: data-model/connells-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/connells-lifecycle.yml
+- aid: connells:connells-testimonials-api
+  name: Connells Group Testimonials API
+  description: Published customer testimonials.
+  humanURL: https://www.connells.co.uk/
+  baseURL: https://www.connells.co.uk/api
+  tags:
+  - Testimonials
+  properties:
+  - type: OpenAPI
+    url: openapi/connells-testimonials-api-openapi.yml
+  - type: Examples
+    url: examples/_index.yml
+  - type: Authentication
+    url: authentication/connells-authentication.yml
+  - type: RateLimits
+    url: rate-limits/connells-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/connells-problem-types.yml
+  - type: Conventions
+    url: conventions/connells-conventions.yml
+  - type: DataModel
+    url: data-model/connells-data-model.yml
+  - type: Lifecycle
     url: lifecycle/connells-lifecycle.yml
 common:
 - type: MCPServer
