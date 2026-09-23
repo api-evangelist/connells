@@ -1,0 +1,26 @@
+{
+  "provider": "connells",
+  "sources": [
+    "_original/connells-website-openapi.yml"
+  ],
+  "outputs": [
+    "connells-branches-api-openapi.yml",
+    "connells-locations-api-openapi.yml",
+    "connells-people-api-openapi.yml",
+    "connells-testimonials-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "connells-website-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "connells-branches-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "connells-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "connells-people-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "connells-testimonials-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
