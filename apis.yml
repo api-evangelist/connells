@@ -69,7 +69,7 @@ accessModel:
     — reachable is not the same as offered, and Connells has published nothing inviting their use.'
 image: https://www.connellsgroup.co.uk/Assets/images/favicons/apple-icon-180x180.png
 tags:
-- Real-Estate
+- Real Estate
 - United Kingdom
 - Property Listings
 - Brokerage
@@ -94,6 +94,7 @@ tags_raw:
 - Property Management
 - Auctions
 - PropTech
+- Real-Estate
 created: '2026-07-26'
 modified: '2026-09-16'
 specificationVersion: '0.23'

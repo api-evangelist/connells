@@ -59,20 +59,6 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    RateLimited:
-      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
-      headers:
-        Retry-After:
-          description: Seconds to wait before retrying.
-          schema:
-            type: integer
-          example: 34
-      content:
-        text/plain:
-          schema:
-            type: string
-          example: Too many requests
   schemas:
     Location:
       type: object
@@ -121,3 +107,17 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ApiError'
+  responses:
+    RateLimited:
+      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema:
+            type: integer
+          example: 34
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Too many requests

@@ -32,21 +32,33 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    RateLimited:
-      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
-      headers:
-        Retry-After:
-          description: Seconds to wait before retrying.
-          schema:
-            type: integer
-          example: 34
-      content:
-        text/plain:
-          schema:
-            type: string
-          example: Too many requests
   schemas:
+    Pagination:
+      type: object
+      description: Pagination envelope returned by the list endpoints.
+      properties:
+        totalCount:
+          type: integer
+          example: 162
+        currentPage:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 12
+        pageCount:
+          type: integer
+          example: 14
+        hasPrevPage:
+          type: boolean
+        hasNextPage:
+          type: boolean
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Name required for places search
     StaffMember:
       type: object
       description: A Connells colleague. The same shape is embedded as a branch's `branchManager`.
@@ -102,26 +114,6 @@ components:
           - 'null'
           description: Foreign key to Branch.id.
           example: 8020
-    Pagination:
-      type: object
-      description: Pagination envelope returned by the list endpoints.
-      properties:
-        totalCount:
-          type: integer
-          example: 162
-        currentPage:
-          type: integer
-          example: 1
-        pageSize:
-          type: integer
-          example: 12
-        pageCount:
-          type: integer
-          example: 14
-        hasPrevPage:
-          type: boolean
-        hasNextPage:
-          type: boolean
     StaffListEnvelope:
       type: object
       properties:
@@ -137,9 +129,17 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ApiError'
-    ApiError:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Name required for places search
+  responses:
+    RateLimited:
+      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema:
+            type: integer
+          example: 34
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Too many requests
