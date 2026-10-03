@@ -71,55 +71,6 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   schemas:
-    BranchService:
-      type: object
-      description: A service line offered at a branch.
-      properties:
-        service:
-          type: string
-          example: Lettings
-        phone_number:
-          type:
-          - string
-          - 'null'
-        fax_number:
-          type:
-          - string
-          - 'null'
-        email_address:
-          type:
-          - string
-          - 'null'
-        enabled:
-          type:
-          - boolean
-          - 'null'
-    Pagination:
-      type: object
-      description: Pagination envelope returned by the list endpoints.
-      properties:
-        totalCount:
-          type: integer
-          example: 162
-        currentPage:
-          type: integer
-          example: 1
-        pageSize:
-          type: integer
-          example: 12
-        pageCount:
-          type: integer
-          example: 14
-        hasPrevPage:
-          type: boolean
-        hasNextPage:
-          type: boolean
-    ApiError:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Name required for places search
     StaffMember:
       type: object
       description: A Connells colleague. The same shape is embedded as a branch's `branchManager`.
@@ -175,6 +126,19 @@ components:
           - 'null'
           description: Foreign key to Branch.id.
           example: 8020
+    BranchEnvelope:
+      type: object
+      properties:
+        result:
+          oneOf:
+          - $ref: '#/components/schemas/Branch'
+          - type: 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApiError'
     BranchListEnvelope:
       type: object
       properties:
@@ -190,6 +154,55 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ApiError'
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Name required for places search
+    BranchService:
+      type: object
+      description: A service line offered at a branch.
+      properties:
+        service:
+          type: string
+          example: Lettings
+        phone_number:
+          type:
+          - string
+          - 'null'
+        fax_number:
+          type:
+          - string
+          - 'null'
+        email_address:
+          type:
+          - string
+          - 'null'
+        enabled:
+          type:
+          - boolean
+          - 'null'
+    Pagination:
+      type: object
+      description: Pagination envelope returned by the list endpoints.
+      properties:
+        totalCount:
+          type: integer
+          example: 162
+        currentPage:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 12
+        pageCount:
+          type: integer
+          example: 14
+        hasPrevPage:
+          type: boolean
+        hasNextPage:
+          type: boolean
     Branch:
       type: object
       description: A Connells branch (high-street office).
@@ -286,19 +299,6 @@ components:
           - string
           - 'null'
           example: /estate-agents/abingdon
-    BranchEnvelope:
-      type: object
-      properties:
-        result:
-          oneOf:
-          - $ref: '#/components/schemas/Branch'
-          - type: 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ApiError'
   responses:
     RateLimited:
       description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).

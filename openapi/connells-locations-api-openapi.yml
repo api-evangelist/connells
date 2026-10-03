@@ -76,23 +76,6 @@ components:
         urlLabel:
           type: string
           description: Observed empty on several records.
-    PlaceMatch:
-      type: array
-      description: '[display label, place id, place slug]'
-      minItems: 3
-      maxItems: 3
-      items:
-        type: string
-      example:
-      - Bedford, Bedfordshire
-      - 51e7c40773dadaf60feea517
-      - bedford
-    ApiError:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Name required for places search
     PlaceSearchEnvelope:
       type: object
       properties:
@@ -107,6 +90,23 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ApiError'
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Name required for places search
+    PlaceMatch:
+      type: array
+      description: '[display label, place id, place slug]'
+      minItems: 3
+      maxItems: 3
+      items:
+        type: string
+      example:
+      - Bedford, Bedfordshire
+      - 51e7c40773dadaf60feea517
+      - bedford
   responses:
     RateLimited:
       description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).

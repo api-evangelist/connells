@@ -33,32 +33,6 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   schemas:
-    Pagination:
-      type: object
-      description: Pagination envelope returned by the list endpoints.
-      properties:
-        totalCount:
-          type: integer
-          example: 162
-        currentPage:
-          type: integer
-          example: 1
-        pageSize:
-          type: integer
-          example: 12
-        pageCount:
-          type: integer
-          example: 14
-        hasPrevPage:
-          type: boolean
-        hasNextPage:
-          type: boolean
-    ApiError:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Name required for places search
     StaffMember:
       type: object
       description: A Connells colleague. The same shape is embedded as a branch's `branchManager`.
@@ -129,6 +103,32 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ApiError'
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Name required for places search
+    Pagination:
+      type: object
+      description: Pagination envelope returned by the list endpoints.
+      properties:
+        totalCount:
+          type: integer
+          example: 162
+        currentPage:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 12
+        pageCount:
+          type: integer
+          example: 14
+        hasPrevPage:
+          type: boolean
+        hasNextPage:
+          type: boolean
   responses:
     RateLimited:
       description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
