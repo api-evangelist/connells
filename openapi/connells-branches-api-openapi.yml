@@ -70,62 +70,27 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
+  responses:
+    RateLimited:
+      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema:
+            type: integer
+          example: 34
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Too many requests
   schemas:
-    StaffMember:
+    ApiError:
       type: object
-      description: A Connells colleague. The same shape is embedded as a branch's `branchManager`.
       properties:
-        id:
-          type: integer
-          example: 23232373
-        slug:
+        message:
           type: string
-          example: paul-barron
-        name:
-          type: string
-          example: Paul Barron
-        jobTitle:
-          type:
-          - string
-          - 'null'
-          example: Instructions Manager
-        avatar:
-          type:
-          - string
-          - 'null'
-          format: uri
-        mobileNumber:
-          type:
-          - string
-          - 'null'
-          description: Observed null on every record sampled.
-        email:
-          type:
-          - string
-          - 'null'
-          description: Observed null on every record sampled.
-        urlLabel:
-          type:
-          - string
-          - 'null'
-        team:
-          type:
-          - string
-          - 'null'
-        shortBio:
-          type:
-          - string
-          - 'null'
-        longBio:
-          type:
-          - string
-          - 'null'
-        branchId:
-          type:
-          - integer
-          - 'null'
-          description: Foreign key to Branch.id.
-          example: 8020
+          example: Name required for places search
     BranchEnvelope:
       type: object
       properties:
@@ -154,55 +119,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/ApiError'
-    ApiError:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Name required for places search
-    BranchService:
-      type: object
-      description: A service line offered at a branch.
-      properties:
-        service:
-          type: string
-          example: Lettings
-        phone_number:
-          type:
-          - string
-          - 'null'
-        fax_number:
-          type:
-          - string
-          - 'null'
-        email_address:
-          type:
-          - string
-          - 'null'
-        enabled:
-          type:
-          - boolean
-          - 'null'
-    Pagination:
-      type: object
-      description: Pagination envelope returned by the list endpoints.
-      properties:
-        totalCount:
-          type: integer
-          example: 162
-        currentPage:
-          type: integer
-          example: 1
-        pageSize:
-          type: integer
-          example: 12
-        pageCount:
-          type: integer
-          example: 14
-        hasPrevPage:
-          type: boolean
-        hasNextPage:
-          type: boolean
     Branch:
       type: object
       description: A Connells branch (high-street office).
@@ -299,17 +215,101 @@ components:
           - string
           - 'null'
           example: /estate-agents/abingdon
-  responses:
-    RateLimited:
-      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
-      headers:
-        Retry-After:
-          description: Seconds to wait before retrying.
-          schema:
-            type: integer
-          example: 34
-      content:
-        text/plain:
-          schema:
-            type: string
-          example: Too many requests
+    Pagination:
+      type: object
+      description: Pagination envelope returned by the list endpoints.
+      properties:
+        totalCount:
+          type: integer
+          example: 162
+        currentPage:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 12
+        pageCount:
+          type: integer
+          example: 14
+        hasPrevPage:
+          type: boolean
+        hasNextPage:
+          type: boolean
+    StaffMember:
+      type: object
+      description: A Connells colleague. The same shape is embedded as a branch's `branchManager`.
+      properties:
+        id:
+          type: integer
+          example: 23232373
+        slug:
+          type: string
+          example: paul-barron
+        name:
+          type: string
+          example: Paul Barron
+        jobTitle:
+          type:
+          - string
+          - 'null'
+          example: Instructions Manager
+        avatar:
+          type:
+          - string
+          - 'null'
+          format: uri
+        mobileNumber:
+          type:
+          - string
+          - 'null'
+          description: Observed null on every record sampled.
+        email:
+          type:
+          - string
+          - 'null'
+          description: Observed null on every record sampled.
+        urlLabel:
+          type:
+          - string
+          - 'null'
+        team:
+          type:
+          - string
+          - 'null'
+        shortBio:
+          type:
+          - string
+          - 'null'
+        longBio:
+          type:
+          - string
+          - 'null'
+        branchId:
+          type:
+          - integer
+          - 'null'
+          description: Foreign key to Branch.id.
+          example: 8020
+    BranchService:
+      type: object
+      description: A service line offered at a branch.
+      properties:
+        service:
+          type: string
+          example: Lettings
+        phone_number:
+          type:
+          - string
+          - 'null'
+        fax_number:
+          type:
+          - string
+          - 'null'
+        email_address:
+          type:
+          - string
+          - 'null'
+        enabled:
+          type:
+          - boolean
+          - 'null'

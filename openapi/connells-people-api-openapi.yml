@@ -32,7 +32,42 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
+  responses:
+    RateLimited:
+      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema:
+            type: integer
+          example: 34
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Too many requests
   schemas:
+    ApiError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Name required for places search
+    StaffListEnvelope:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaffMember'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ApiError'
     StaffMember:
       type: object
       description: A Connells colleague. The same shape is embedded as a branch's `branchManager`.
@@ -88,27 +123,6 @@ components:
           - 'null'
           description: Foreign key to Branch.id.
           example: 8020
-    StaffListEnvelope:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/StaffMember'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ApiError'
-    ApiError:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Name required for places search
     Pagination:
       type: object
       description: Pagination envelope returned by the list endpoints.
@@ -129,17 +143,3 @@ components:
           type: boolean
         hasNextPage:
           type: boolean
-  responses:
-    RateLimited:
-      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
-      headers:
-        Retry-After:
-          description: Seconds to wait before retrying.
-          schema:
-            type: integer
-          example: 34
-      content:
-        text/plain:
-          schema:
-            type: string
-          example: Too many requests
