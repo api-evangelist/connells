@@ -33,6 +33,20 @@ paths:
           $ref: '#/components/responses/RateLimited'
 components:
   schemas:
+    TestimonialListEnvelope:
+      type: object
+      description: Note the singular `error` key and the null `pagination` — this envelope is not consistent with the branch and staff envelopes.
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Testimonial'
+        pagination:
+          type: 'null'
+        error:
+          type:
+          - object
+          - 'null'
     Testimonial:
       type: object
       properties:
@@ -57,20 +71,6 @@ components:
           type: string
           format: date-time
           example: '2026-07-24T13:29:00.000Z'
-    TestimonialListEnvelope:
-      type: object
-      description: Note the singular `error` key and the null `pagination` — this envelope is not consistent with the branch and staff envelopes.
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Testimonial'
-        pagination:
-          type: 'null'
-        error:
-          type:
-          - object
-          - 'null'
   responses:
     RateLimited:
       description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).

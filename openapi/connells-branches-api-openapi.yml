@@ -70,55 +70,56 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimited'
 components:
-  responses:
-    RateLimited:
-      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
-      headers:
-        Retry-After:
-          description: Seconds to wait before retrying.
-          schema:
-            type: integer
-          example: 34
-      content:
-        text/plain:
-          schema:
-            type: string
-          example: Too many requests
   schemas:
+    BranchService:
+      type: object
+      description: A service line offered at a branch.
+      properties:
+        service:
+          type: string
+          example: Lettings
+        phone_number:
+          type:
+          - string
+          - 'null'
+        fax_number:
+          type:
+          - string
+          - 'null'
+        email_address:
+          type:
+          - string
+          - 'null'
+        enabled:
+          type:
+          - boolean
+          - 'null'
+    Pagination:
+      type: object
+      description: Pagination envelope returned by the list endpoints.
+      properties:
+        totalCount:
+          type: integer
+          example: 162
+        currentPage:
+          type: integer
+          example: 1
+        pageSize:
+          type: integer
+          example: 12
+        pageCount:
+          type: integer
+          example: 14
+        hasPrevPage:
+          type: boolean
+        hasNextPage:
+          type: boolean
     ApiError:
       type: object
       properties:
         message:
           type: string
           example: Name required for places search
-    BranchEnvelope:
-      type: object
-      properties:
-        result:
-          oneOf:
-          - $ref: '#/components/schemas/Branch'
-          - type: 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ApiError'
-    BranchListEnvelope:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Branch'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ApiError'
     Branch:
       type: object
       description: A Connells branch (high-street office).
@@ -215,26 +216,6 @@ components:
           - string
           - 'null'
           example: /estate-agents/abingdon
-    Pagination:
-      type: object
-      description: Pagination envelope returned by the list endpoints.
-      properties:
-        totalCount:
-          type: integer
-          example: 162
-        currentPage:
-          type: integer
-          example: 1
-        pageSize:
-          type: integer
-          example: 12
-        pageCount:
-          type: integer
-          example: 14
-        hasPrevPage:
-          type: boolean
-        hasNextPage:
-          type: boolean
     StaffMember:
       type: object
       description: A Connells colleague. The same shape is embedded as a branch's `branchManager`.
@@ -290,26 +271,45 @@ components:
           - 'null'
           description: Foreign key to Branch.id.
           example: 8020
-    BranchService:
+    BranchEnvelope:
       type: object
-      description: A service line offered at a branch.
       properties:
-        service:
-          type: string
-          example: Lettings
-        phone_number:
+        result:
+          oneOf:
+          - $ref: '#/components/schemas/Branch'
+          - type: 'null'
+        errors:
           type:
-          - string
+          - array
           - 'null'
-        fax_number:
+          items:
+            $ref: '#/components/schemas/ApiError'
+    BranchListEnvelope:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        errors:
           type:
-          - string
+          - array
           - 'null'
-        email_address:
-          type:
-          - string
-          - 'null'
-        enabled:
-          type:
-          - boolean
-          - 'null'
+          items:
+            $ref: '#/components/schemas/ApiError'
+  responses:
+    RateLimited:
+      description: Rate limited at the Cloudflare edge. Body is the plain-text string "Too many requests" and a Retry-After header is supplied (34 seconds observed).
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema:
+            type: integer
+          example: 34
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Too many requests
