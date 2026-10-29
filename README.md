@@ -1,4 +1,4 @@
-# Connells Group (connells)
+# Connells Group
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,109 +64,125 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Connells Limited, trading as Connells Group, is the United Kingdom's largest estate agency and property services group, headquartered in Leighton Buzzard, Bedfordshire, and a wholly owned subsidiary of Skipton Building Society. It states 1,200+ branches, 16,000+ colleagues, more than 80 local brands (Connells, Countrywide, Hamptons, Sequence, Bairstow Eves, Fox & Sons, John D Wood & Co, Gascoigne Halman, Blundells), roughly 115,000 property sales a year and about 10% market share, 165,000+ managed tenancies and £33bn+ of arranged mortgage lending. Its home market is the United Kingdom, where there is no MLS and no cooperative listing standard, and its API posture is closed: no developer portal, no documentation, no machine-readable contract. Integration exists only inside commercial lender-panel and platform relationships.
+Connells Limited, trading as Connells Group, is the United Kingdom's largest estate agency and property services group, headquartered at Cumbria House in Leighton Buzzard, Bedfordshire, and a wholly owned subsidiary of Skipton Building Society. It states 1,200+ branches, 16,000+ colleagues, more than 80 local brands including Connells, Countrywide, Hamptons, Sequence, Bairstow Eves, Fox & Sons, John D Wood & Co, Gascoigne Halman and Blundells, roughly 115,000 property sales a year and about 10% market share, 165,000+ managed tenancies and £33bn+ of arranged mortgage lending. It occupies almost the entire residential value chain at once: estate agency, residential and corporate lettings, new homes, land and planning, auctions, surveys and valuations, conveyancing, mortgage services, asset management, affordable housing, EPCs and inventories, commercial agency and a research and consultancy practice. Its home market is the United Kingdom, where there is no MLS and no cooperative listing standard — residential stock reaches consumers through the Rightmove and Zoopla portal duopoly by way of agency CRM and website software rather than a shared pool, and Connells' own consumer property sites are built on the Homeflow platform. Its API posture is closed and undocumented. No developer portal exists: developer., developers., api. and docs.connellsgroup.co.uk do not resolve, and /developers, /api, /docs, /openapi.json, /swagger.json, /api-docs and /.well-known/openid-configuration return 404 on both connellsgroup.co.uk and connells.co.uk. It publishes no OpenAPI, no GraphQL, no AsyncAPI, no MCP server and no client SDK — the only first-party package on any public registry is a dormant npm colour-token file for its website. Probing on 2026-07-26 did, however, find a small live JSON surface underneath the consumer site at https://www.connells.co.uk/api: six anonymous read-only Next.js route handlers serving the branch finder, people directory, testimonials wall and place autocomplete, plus a seventh (/api/properties) that returns HTTP 500. These are undocumented internal website routes, not a product — unversioned, unsupported, rate limited by Cloudflare, capped at 12 records because no paging parameter works, and carrying application errors inside HTTP 200 bodies. Only connells.co.uk exposes them; the sibling brand sites redirect /api/* away. The group's 88-URL corporate sitemap contains no developer path — its one /developers/ page is addressed to property developers, not software developers. Integration is real but partner-only: Connells Survey & Valuation advertises delivering "totally integrated panel and risk management technology solutions to lenders" for the 40+ lenders whose valuation panels it manages, and reaches them through third-party platforms such as Cotality's LenderHub, while Countrywide Surveying Services' Geoconnect engine is described as connecting internal and external data sources through API integrations it consumes rather than publishes. There is no RESO Web API or Data Dictionary certification, no OData $metadata document and no Universal Property Identifier anywhere in the estate — RESO is a North American NAR/MLS mechanism and the UK has no MLS to certify against. Connells publishes no open data either; its research product, covering 88% of UK postcode areas from branch-level proprietary data, is sold through a brochure request and a contact form, and the genuinely open UK property layer belongs to the public sector (HM Land Registry Price Paid Data and Ordnance Survey), not to the brokerage.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/connells/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/connells/refs/heads/main/apis.yml)
+**Areas:** Real Estate · United Kingdom · Property Listings · Brokerage · Estate Agency · Rentals · Valuation · Conveyancing · Mortgage · Property Management · Auctions · PropTech
 
-## Tags
+## Connells Group on APIs.io
 
-- Real Estate
-- United Kingdom
-- Property Listings
-- Brokerage
-- Estate Agency
-- Rentals
-- Valuation
-- Conveyancing
-- Mortgage
-- Property Management
-- Auctions
-- PropTech
+Everything profiled for Connells Group is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/connells/](https://apis.io/providers/connells/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-07-26
-- **Modified:** 2026-07-26
+- [Connells Group Branches API](https://apis.io/apis/connells/connells-branches-api/) — Connells branch (office) directory.
+- [Connells Group Locations API](https://apis.io/apis/connells/connells-locations-api/) — Geographic locations and place-name lookup.
+- [Connells Group People API](https://apis.io/apis/connells/connells-people-api/) — Connells staff directory.
+- [Connells Group Testimonials API](https://apis.io/apis/connells/connells-testimonials-api/) — Published customer testimonials.
 
-## APIs
+### Published properties
 
-Connells Group publishes no documented public API — but it does leak one.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Every conventional developer entry point was probed on 2026-07-26 and every one failed. `developer.`, `developers.`, `api.` and `docs.connellsgroup.co.uk` do not resolve; `/developers`, `/api`, `/docs`, `/openapi.json`, `/swagger.json`, `/api-docs`, `/$metadata` and `/.well-known/openid-configuration` return 404 on both connellsgroup.co.uk and connells.co.uk. The group's 88-URL corporate sitemap contains no developer path — its one `/developers/` page addresses property developers, not software developers. No OpenAPI, Swagger, OData `$metadata`, AsyncAPI, GraphQL schema, MCP server or Postman collection is published anywhere.
+#### MCP servers (1)
 
-A second enrichment round went further and enumerated the Next.js App Router route handlers behind `www.connells.co.uk`, and found **six live, anonymous, read-only JSON endpoints** at `https://www.connells.co.uk/api` — plus a seventh that is simply broken:
+Model Context Protocol servers that expose the API to agents.
 
-| Operation | Path | Status |
-|---|---|---|
-| `listBranches` | `GET /api/branches` | 200 — 162 branches advertised, 12 returned |
-| `getBranch` | `GET /api/branches/{id}` | 200 — numeric id only; a slug returns `result: null` |
-| `listStaff` | `GET /api/staff` | 200 — 841 staff advertised, 12 returned |
-| `listTestimonials` | `GET /api/testimonials` | 200 — inconsistent envelope |
-| `listLocations` | `GET /api/locations` | 200 — bare array, no envelope |
-| `searchPlaces` | `GET /api/places?name=` | 200 — `name` required |
-| `listProperties` | `GET /api/properties` | **500 on every probe** |
+- [connells](https://apis.io/servers/connells/connells/)
 
-This is not a product and should not be described as one. It is unversioned, undocumented and unsupported, with no terms and no status page. Authentication is absent entirely; the only control is a Cloudflare rate limit that answers HTTP 429 with `Retry-After` and no forward `RateLimit-*` headers. Application errors ride inside HTTP 200 bodies rather than status codes. Pagination metadata advertises 162 branches across 14 pages, but no paging parameter is honoured — pages 2..n are unreachable, so the surface cannot deliver the collection it describes. Only `connells.co.uk` exposes these handlers; the sibling brand sites run the Homeflow Rails application and redirect `/api/*` away.
+#### Agentic access (1)
 
-The `openapi/` document in this repo was **derived by API Evangelist from captured live responses**, not published by Connells. Every schema is a transcription of a body the service actually returned, and the captures are kept alongside it in `examples/`.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-There is no property listings data on this surface. The group's core asset — ~115,000 sales a year of stock — reaches consumers through Rightmove, Zoopla and OnTheMarket, server-rendered from the Homeflow platform.
+- [Connells Agentic Access](https://apis.io/agentic-access/connells/connells-agentic-access/)
 
-### RESO posture
+#### Examples (5)
 
-No RESO reference exists anywhere in the Connells Group estate. There is no RESO Web API certification, no Data Dictionary certification, no OData `$metadata` document and no Universal Property Identifier. The RESO certified-organizations directory at [reso.org/certificates](https://www.reso.org/certificates/) (fetched 2026-07-26, HTTP 200) contains no Connells entity and no UK entity at all. This is structural: RESO is a North American NAR/MLS mechanism, the UK has no MLS, and the de facto UK interchange format is the Rightmove V3 BLM XML feed — a private portal's bulk upload specification, not a standards-body contract.
+Example requests and responses.
 
-### Access gate
+- [Connells Branch By Id Response](https://apis.io/examples/connells/connells-branch-by-id-response/)
+- [Connells Branches Response](https://apis.io/examples/connells/connells-branches-response/)
+- [Connells Places Search Response](https://apis.io/examples/connells/connells-places-search-response/)
+- [Connells Staff Response](https://apis.io/examples/connells/connells-staff-response/)
+- [Connells Testimonials Response](https://apis.io/examples/connells/connells-testimonials-response/)
 
-`partner-only`. There is no developer signup, no application form, no sandbox, no API terms and no published key issuance. Programmatic integration is real but reachable only through a commercial relationship: a panel management agreement with Connells Survey & Valuation, which advertises "totally integrated panel and risk management technology solutions to lenders" for the 40+ UK lenders whose valuation panels it manages, or through third-party platforms such as Cotality's LenderHub. The Connells Group Research data product — proprietary branch data covering 88% of UK postcode areas, blended at UDPRN level — is sold through a brochure request and a contact form, not served over a feed.
+#### Collections (1)
 
-### Open data
+Postman and Open Collection request collections.
 
-None from Connells. The genuinely open UK property layer belongs to the public sector — HM Land Registry Price Paid Data and ownership data under the Open Government Licence, and Ordnance Survey's addressing and mapping open products — not to the brokerage.
+- [Connells Website JSON API (undocumented)](https://apis.io/collections/connells/open-connells-website/)
 
-## Artifacts
+#### Security (2)
 
-| Artifact | File | Method |
-|---|---|---|
-| OpenAPI 3.1 (derived from live captures) | `openapi/connells-website-openapi.yml` | derived |
-| Captured live responses | `examples/` | searched |
-| Authentication profile (none required) | `authentication/connells-authentication.yml` | probed |
-| Rate limits (Cloudflare 429 / Retry-After) | `rate-limits/connells-rate-limits.yml` | probed |
-| Error catalogue | `errors/connells-problem-types.yml` | derived |
-| API conventions | `conventions/connells-conventions.yml` | derived |
-| Data model | `data-model/connells-data-model.yml` | derived |
-| Lifecycle (honest negative) | `lifecycle/connells-lifecycle.yml` | probed |
-| Conformance + regulatory registrations | `conformance/connells-conformance.yml` | searched |
-| Packages | `packages/connells-packages.yml` | searched |
-| Agent skills | `skills/` | generated |
-| Agentic access contracts | `agentic-access/connells-agentic-access.yml` | generated |
-| Candidate MCP tools (no server exists) | `mcp/connells-mcp.yml` | derived |
-| llms.txt | `llms/connells-llms.txt` | generated |
-| Domain security probe | `security/connells-domain-security.yml` | probed |
-| Well-known probe (all 404) | `well-known/connells-well-known.yml` | probed |
+Authentication, trust centre, and vulnerability disclosure.
 
-### What is deliberately absent
+- [Connells Authentication](https://apis.io/security/connells/connells-authentication/)
+- [Connells Domain Security](https://apis.io/security/connells/connells-domain-security/)
 
-No `SDKs`, `MCPServer`, `StatusPage`, `Deprecation`, `Security`, `WellKnown`, `SecurityTxt`, `Webhooks`, `AsyncAPI`, `Idempotency`, `Documentation`, `DeveloperPortal`, `APIReference`, `GettingStarted`, `SignUp`, `Postman`, `GitHubOrganization`, `CLI`, `Sandbox` or `ChangeLog` pointer is claimed, because Connells publishes none of those things. The only first-party package on any public registry is `@connells-group/design-tokens__con` — a dormant npm colour-token file for the website, verified first-party by its `@connellsgroup.co.uk` maintainer address, and not an API client.
+#### Rate limits (1)
 
-## Properties
+Published request limits.
+
+- [Connells Rate Limits](https://apis.io/rate-limits/connells/connells-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.connellsgroup.co.uk/)
-- [Connells Estate Agents](https://www.connells.co.uk/)
-- [Countrywide](https://www.countrywide.co.uk/)
-- [Hamptons](https://www.hamptons.co.uk/)
-- [Sequence Home](https://www.sequencehome.co.uk/)
-- [Connells Survey & Valuation](https://www.connells-surveyors.co.uk/)
-- [Properties for Sale](https://www.connells.co.uk/properties/sales)
-- [Properties to Let](https://www.connells.co.uk/properties/lettings)
-- [Research — Our Data](https://www.connellsgroup.co.uk/research/our-data/)
-- [News](https://www.connellsgroup.co.uk/news/)
-- [Contact](https://www.connellsgroup.co.uk/contact-us/)
-- [Careers](https://www.connellsgroup.co.uk/careers/work-with-us/)
-- [Privacy Policy](https://www.connellsgroup.co.uk/privacy-policy/)
-- [LinkedIn](https://www.linkedin.com/company/connells-group)
-- [Skipton Building Society (parent)](https://www.skipton.co.uk/)
+- [Blog](https://www.connellsgroup.co.uk/news/)
+- [Compliance](https://www.connellsgroup.co.uk/required-disclosures-inc-modern-slavery-act-statement/)
+- [Terms of service](https://www.connellsgroup.co.uk/legal-notices/)
+- [Privacy policy](https://www.connellsgroup.co.uk/privacy-policy/)
 
-## Maintainers
+## API Evangelist rating
 
-- Kin Lane — kin@apievangelist.com
+**Kin Score 22.7** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 15.2 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 16.1 |
+| Access clarity | 28.9 |
+
+**Agent readiness 30.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 27.8** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/connells/](https://apis.io/providers/connells/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Connells Group: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/connells/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
